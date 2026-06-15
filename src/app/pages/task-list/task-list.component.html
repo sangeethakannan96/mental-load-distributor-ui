@@ -1,0 +1,176 @@
+<mat-card>
+
+  <h2>
+
+    Filters
+
+  </h2>
+
+  <mat-card>
+
+  <h2>
+
+    Search Tasks
+
+  </h2>
+
+  <mat-form-field
+    appearance="outline"
+    style="width:100%;"
+  >
+
+    <mat-label>
+
+      Search
+
+    </mat-label>
+
+    <input
+      matInput
+      [(ngModel)]="searchText"
+      placeholder="Search title or description"
+    />
+
+  </mat-form-field>
+
+</mat-card>
+
+<br>
+
+  <mat-form-field>
+
+    <mat-label>
+
+      Filter
+
+    </mat-label>
+
+    <mat-select
+      [(ngModel)]="selectedFilter"
+    >
+
+      <mat-option value="all">
+
+        All
+
+      </mat-option>
+
+      <mat-option value="overdue">
+
+        Overdue
+
+      </mat-option>
+
+      <mat-option value="today">
+
+        Due Today
+
+      </mat-option>
+
+      <mat-option value="high">
+
+        High Priority
+
+      </mat-option>
+
+      <mat-option value="assigned">
+
+        Assigned
+
+      </mat-option>
+
+      <mat-option value="unassigned">
+
+        Unassigned
+
+      </mat-option>
+
+    </mat-select>
+
+  </mat-form-field>
+
+  <mat-form-field>
+
+    <mat-label>
+
+      Sort
+
+    </mat-label>
+
+    <mat-select
+      [(ngModel)]="selectedSort"
+    >
+
+      <mat-option value="">
+
+        Default
+
+      </mat-option>
+
+      <mat-option value="dueDate">
+
+        Due Date
+
+      </mat-option>
+
+      <mat-option value="priority">
+
+        Priority
+
+      </mat-option>
+
+      <mat-option value="minutes">
+
+        Estimated Minutes
+
+      </mat-option>
+
+    </mat-select>
+
+  </mat-form-field>
+
+</mat-card>
+
+<br>
+
+<h2>
+
+  Active Tasks
+
+</h2>
+
+<div *ngIf="filteredTasks.length === 0">
+
+  No active tasks found.
+
+</div>
+
+<app-task-card
+  *ngFor="let task of filteredTasks"
+  [task]="task"
+  [familyUsers]="familyUsers"
+  (complete)="completeTask($event)"
+  (delete)="deleteTask($event)"
+  (updated)="loadTasks()">
+  
+</app-task-card>
+
+<br>
+
+<h2>
+
+  History
+
+</h2>
+
+<div *ngIf="historyTasks.length === 0">
+
+  No completed tasks.
+
+</div>
+
+<app-task-card
+  *ngFor="let task of historyTasks"
+  [task]="task"
+  [familyUsers]="familyUsers">
+</app-task-card>

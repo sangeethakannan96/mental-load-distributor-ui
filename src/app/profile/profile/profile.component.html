@@ -1,0 +1,224 @@
+<h1 class="page-title">
+
+  My Profile
+
+</h1>
+
+<mat-card
+  *ngIf="user"
+  class="profile-card"
+>
+
+  <h2>
+
+    {{ user.name }}
+
+  </h2>
+
+  <p>
+
+    📧 {{ user.email }}
+
+  </p>
+
+  <p>
+
+    👤 Role:
+    {{ getRoleName(user.role) }}
+
+  </p>
+
+  <p>
+
+    📊 Availability Score:
+    {{ user.availabilityScore }}
+
+  </p>
+
+  <div *ngIf="user.skills?.length">
+
+    <h3>
+
+      Skills
+
+    </h3>
+
+    <mat-chip-set>
+
+      <mat-chip
+        *ngFor="
+          let skill of user.skills
+        "
+      >
+
+        {{ skill }}
+
+      </mat-chip>
+
+    </mat-chip-set>
+
+  </div>
+
+  <button
+  mat-raised-button
+  color="primary"
+  (click)="startEdit()"
+>
+  Edit Profile
+</button>
+
+
+</mat-card>
+
+<mat-card
+  *ngIf="isEditing"
+  class="profile-card"
+>
+
+  <h2>
+
+    Edit Profile
+
+  </h2>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width"
+  >
+
+    <mat-label>
+
+      Name
+
+    </mat-label>
+
+    <input
+      matInput
+      [(ngModel)]="editUser.name"
+    />
+
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width"
+  >
+
+    <mat-label>
+
+      Email
+
+    </mat-label>
+
+    <input
+      matInput
+      [(ngModel)]="editUser.email"
+    />
+
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width"
+  >
+
+    <mat-label>
+
+      Availability Score
+
+    </mat-label>
+
+    <input
+      matInput
+      type="number"
+      [(ngModel)]="editUser.availabilityScore"
+    />
+
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width"
+  >
+
+    <mat-label>
+
+      Role
+
+    </mat-label>
+
+    <mat-select
+      [(ngModel)]="editUser.role"
+    >
+
+     <mat-option value="Mom">
+
+  Mom
+
+</mat-option>
+
+<mat-option value="Dad">
+
+  Dad
+
+</mat-option>
+
+<mat-option value="Other">
+
+  Other
+
+</mat-option>
+
+    </mat-select>
+
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width"
+  >
+
+    <mat-label>
+
+      Skills
+
+    </mat-label>
+
+    <input
+      matInput
+      [(ngModel)]="editUser.skills"
+      placeholder="Cooking, Shopping, Laundry"
+    />
+
+  </mat-form-field>
+
+  <br>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="saveProfile()"
+  >
+
+    Save
+
+  </button>
+
+  <button
+    mat-button
+    (click)="isEditing = false"
+  >
+
+    Cancel
+
+  </button>
+
+</mat-card>

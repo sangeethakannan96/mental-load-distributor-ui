@@ -1,0 +1,378 @@
+<h1 class="page-title">
+
+  Family Members
+
+</h1>
+
+<mat-card class="family-card">
+
+  <h2>Add Family Member</h2>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width"
+  >
+
+    <mat-label>
+      Name
+    </mat-label>
+
+    <input
+      matInput
+      [(ngModel)]="memberName"
+    />
+
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width"
+  >
+
+    <mat-label>
+      Email
+    </mat-label>
+
+    <input
+      matInput
+      [(ngModel)]="memberEmail"
+    />
+
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field
+  appearance="outline"
+  class="full-width"
+>
+
+  <mat-label>
+
+    Availability Score
+
+  </mat-label>
+
+  <input
+    matInput
+    type="number"
+    [(ngModel)]="memberAvailabilityScore"
+  />
+
+</mat-form-field>
+
+<br>
+
+<mat-form-field
+  appearance="outline"
+  class="full-width"
+>
+
+  <mat-label>
+
+    Role
+
+  </mat-label>
+
+  <mat-select
+    [(ngModel)]="memberRole"
+  >
+
+    <mat-option value="Mom">
+
+      Mom
+
+    </mat-option>
+
+    <mat-option value="Dad">
+
+      Dad
+
+    </mat-option>
+
+    <mat-option value="Other">
+
+      Other
+
+    </mat-option>
+
+  </mat-select>
+
+</mat-form-field>
+
+<mat-form-field
+  appearance="outline"
+  class="full-width"
+>
+
+  <mat-label>
+
+    Skills
+
+  </mat-label>
+
+  <input
+    matInput
+    [(ngModel)]="memberSkills"
+    placeholder="Shopping,Cooking,Laundry"
+  />
+
+</mat-form-field>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="addMember()"
+  >
+
+    Add Member
+
+  </button>
+
+</mat-card>
+
+<br>
+
+<mat-card class="family-card">
+
+  <h2>Members</h2>
+
+  
+    <div
+  *ngFor="let user of users"
+  class="member-row">
+
+  <div>
+
+    <strong>
+
+      {{ user.name }}
+
+    </strong>
+
+    <p>
+
+      {{ user.email }}
+
+    </p>
+
+    <p>
+
+  Availability:
+  {{ user.availabilityScore }}
+
+    </p>
+
+    <p>
+
+  Role:
+  {{ user.role }}
+
+</p>
+
+<p>
+
+  Skills:
+  {{ user.skills?.join(', ') }}
+
+</p>
+
+  </div>
+
+  <div>
+
+    <div>
+
+  <button
+    mat-button
+    color="primary"
+    (click)="viewTasks(user.id)"
+  >
+    View Tasks
+  </button>
+
+  <button
+    mat-button
+    color="accent"
+    (click)="editMember(user)"
+  >
+    Edit
+  </button>
+
+  <button
+  mat-button
+  color="warn"
+  (click)="deleteMember(user.id)"
+>
+
+  Delete
+
+</button>
+
+</div>
+
+  </div>
+
+</div>
+
+
+</mat-card>
+
+<br>
+
+<mat-card
+  *ngIf="editingUser"
+  class="family-card"
+>
+
+  <h2>
+
+    Edit Member
+
+  </h2>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width"
+  >
+
+    <mat-label>
+
+      Name
+
+    </mat-label>
+
+    <input
+      matInput
+      [(ngModel)]="
+        editingUser.name
+      "
+    />
+
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width"
+  >
+
+    <mat-label>
+
+      Availability Score
+
+    </mat-label>
+
+    <input
+      matInput
+      type="number"
+      [(ngModel)]="
+        editingUser.availabilityScore
+      "
+    />
+
+  </mat-form-field>
+
+  <mat-form-field
+  appearance="outline"
+  class="full-width"
+>
+
+  <mat-label>
+
+    Email
+
+  </mat-label>
+
+  <input
+    matInput
+    [(ngModel)]="editingUser.email"
+  />
+
+</mat-form-field>
+
+  <br>
+
+  <mat-form-field
+  appearance="outline"
+  class="full-width"
+>
+
+  <mat-label>
+
+    Role
+
+  </mat-label>
+
+  <mat-select
+    [(ngModel)]="editingUser.role"
+  >
+
+    <mat-option value="Mom">
+
+      Mom
+
+    </mat-option>
+
+    <mat-option value="Dad">
+
+      Dad
+
+    </mat-option>
+
+    <mat-option value="Other">
+
+      Other
+
+    </mat-option>
+
+  </mat-select>
+
+</mat-form-field>
+
+<br>
+
+<mat-form-field
+  appearance="outline"
+  class="full-width"
+>
+
+  <mat-label>
+
+    Skills
+
+  </mat-label>
+
+  <input
+    matInput
+    [(ngModel)]="editingUser.skills"
+    placeholder="Shopping,Cooking,Laundry"
+  />
+
+</mat-form-field>
+
+<br>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="saveMember()"
+  >
+
+    Save
+
+  </button>
+
+  <button
+    mat-button
+    (click)="editingUser = null"
+  >
+
+    Cancel
+
+  </button>
+
+</mat-card>

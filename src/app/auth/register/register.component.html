@@ -1,0 +1,83 @@
+<mat-card class="auth-card">
+
+  <h2>Create Account</h2>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width"
+  >
+
+    <mat-label>
+      Name
+    </mat-label>
+
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="name"
+    />
+
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width"
+  >
+
+    <mat-label>
+      Email
+    </mat-label>
+
+    <input
+      matInput
+      type="email"
+      [(ngModel)]="email"
+    />
+
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width"
+  >
+
+    <mat-label>
+      Password
+    </mat-label>
+
+    <input
+      matInput
+      type="password"
+      [(ngModel)]="password"
+    />
+
+  </mat-form-field>
+
+  <br>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="register()"
+  >
+
+    Register
+
+  </button>
+
+  <br><br>
+
+  <button
+    mat-button
+    routerLink="/login"
+  >
+
+    Already have an account?
+
+  </button>
+
+</mat-card>

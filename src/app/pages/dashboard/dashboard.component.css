@@ -1,0 +1,14 @@
+.overdue-card {
+
+  border-left: 6px solid #d32f2f;
+}
+
+.today-card {
+
+  border-left: 6px solid #f57c00;
+}
+
+.urgent-card {
+
+  border-left: 6px solid #7b1fa2;
+}

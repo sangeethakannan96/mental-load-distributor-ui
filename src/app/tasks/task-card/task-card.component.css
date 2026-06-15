@@ -1,0 +1,18 @@
+.task-card {
+
+  margin-bottom: 20px;
+
+  border-radius: 12px;
+}
+
+.full-width {
+
+  width: 100%;
+}
+
+.overdue {
+
+  color: red;
+
+  font-weight: bold;
+}

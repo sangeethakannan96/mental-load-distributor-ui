@@ -1,0 +1,460 @@
+<mat-card class="task-card">
+
+  <mat-card-title>
+
+    {{ task.title }}
+
+  </mat-card-title>
+
+  <mat-card-content>
+
+    <p>
+
+      {{ task.description }}
+
+    </p>
+
+    <mat-chip-set *ngIf="task.tags?.length">
+
+  <mat-chip
+    *ngFor="let tag of task.tags"
+  >
+
+    {{ tag }}
+
+  </mat-chip>
+
+</mat-chip-set>
+
+    <p>
+
+      ⏱ Estimated:
+      {{ task.estimatedMinutes }} mins
+
+    </p>
+
+    <p *ngIf="task.dueDate">
+
+      📅 Due:
+      {{ task.dueDate | date:'mediumDate' }}
+
+    </p>
+
+    <p *ngIf="isOverdue()"
+       class="overdue">
+
+      ⚠ Overdue
+
+    </p>
+
+    <p>
+
+      <span *ngIf="task.priority === 0">
+
+        🟢 Low
+
+      </span>
+
+      <span *ngIf="task.priority === 1">
+
+        🟡 Medium
+
+      </span>
+
+      <span *ngIf="task.priority === 2">
+
+        🔴 High
+
+      </span>
+
+    </p>
+
+    <p *ngIf="task.recurrence === 1">
+
+  🔁 Daily
+
+</p>
+
+<p *ngIf="task.recurrence === 2">
+
+  🔁 Weekly
+
+</p>
+
+<p *ngIf="task.recurrence === 3">
+
+  🔁 Monthly
+
+</p>
+
+    <p *ngIf="task.assignedTo">
+
+      👤 Assigned To:
+      {{ task.assignedTo.name }}
+
+    </p>
+
+    <p *ngIf="task.isCompleted">
+
+      ✅ Completed
+
+    </p>
+
+    <p *ngIf="!task.isCompleted">
+
+      ⏳ Pending
+
+    </p>
+
+  </mat-card-content>
+
+  <mat-card-actions>
+
+    <button
+      mat-raised-button
+      color="primary"
+      *ngIf="!task.isCompleted && task.assignedTo"
+      (click)="onCompleteClick()"
+    >
+
+      Complete
+
+    </button>
+
+    <button
+      mat-button
+      color="primary"
+      *ngIf="
+      !task.isCompleted &&
+      !isEditing
+      "
+      (click)="startEdit()"
+    >
+
+        Edit
+
+    </button>
+
+    <button
+      mat-button
+      color="warn"
+      *ngIf="!task.isCompleted"
+      (click)="onDeleteClick()"
+    >
+
+    Delete
+
+    </button>
+
+    <button
+      mat-raised-button
+      color="accent"
+      *ngIf="!task.isCompleted && !suggestedUserName && !task.assignedTo"
+      (click)="suggestAssignee()"
+    >
+
+      Suggest Assignee
+
+    </button>
+
+  </mat-card-actions>
+
+  <div *ngIf="suggestedUserName">
+
+    <p>
+
+      Suggested:
+      {{ suggestedUserName }}
+
+      
+
+    </p>
+
+    <div
+  *ngIf="
+    recommendationReasons.length
+  "
+>
+
+  <h4>
+
+    Why?
+
+  </h4>
+
+  <ul>
+
+    <li
+      *ngFor="
+        let reason of recommendationReasons
+      "
+    >
+
+      ✓ {{ reason }}
+
+    </li>
+
+  </ul>
+
+</div>
+
+    
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="assignSuggestedUser()"
+    >
+
+      Assign
+
+    </button>
+
+  </div>
+
+  <div
+    *ngIf="
+      !task.isCompleted &&
+      !task.assignedTo &&
+      familyUsers.length > 0
+    "
+  >
+
+    <mat-form-field
+      appearance="outline"
+      class="full-width"
+    >
+
+      <mat-label>
+        Select Family Member
+      </mat-label>
+
+      <mat-select
+        [(ngModel)]="selectedUserId"
+      >
+
+        <mat-option
+          *ngFor="let user of familyUsers"
+          [value]="user.id"
+        >
+
+          {{ user.name }}
+
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="assignSelectedUser()"
+    >
+
+      Assign User
+
+    </button>
+
+  </div>
+
+
+  <div *ngIf="isEditing">
+
+  <mat-card>
+
+    <h3>Edit Task</h3>
+
+    <mat-form-field
+      class="full-width"
+    >
+
+      <mat-label>
+        Title
+      </mat-label>
+
+      <input
+        matInput
+        [(ngModel)]="editTask.title"
+      />
+
+    </mat-form-field>
+
+    <mat-form-field
+      class="full-width"
+    >
+
+      <mat-label>
+        Description
+      </mat-label>
+
+      <textarea
+        matInput
+        [(ngModel)]="
+          editTask.description
+        "
+      ></textarea>
+
+    </mat-form-field>
+
+    <mat-form-field
+      class="full-width"
+    >
+
+      <mat-label>
+        Due Date
+      </mat-label>
+
+      <input
+        matInput
+        type="date"
+        [(ngModel)]="
+          editTask.dueDate
+        "
+      />
+
+    </mat-form-field>
+
+    <mat-form-field
+      class="full-width"
+    >
+
+      <mat-label>
+        Priority
+      </mat-label>
+
+      <mat-select
+        [(ngModel)]="
+          editTask.priority
+        "
+      >
+
+        <mat-option [value]="0">
+          Low
+        </mat-option>
+
+        <mat-option [value]="1">
+          Medium
+        </mat-option>
+
+        <mat-option [value]="2">
+          High
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <mat-form-field
+  appearance="outline"
+  class="full-width"
+>
+
+  <mat-label>
+
+    Assigned To
+
+  </mat-label>
+
+  <mat-select
+    [(ngModel)]="editTask.assignedToId"
+  >
+
+    <mat-option
+      [value]="null"
+    >
+
+      Unassigned
+
+    </mat-option>
+
+    <mat-option
+      *ngFor="
+        let user of familyUsers
+      "
+      [value]="user.id"
+    >
+
+      {{ user.name }}
+
+    </mat-option>
+
+  </mat-select>
+
+</mat-form-field>
+
+    <mat-form-field
+      class="full-width"
+    >
+
+      <mat-label>
+        Recurrence
+      </mat-label>
+
+      <mat-select
+        [(ngModel)]="
+          editTask.recurrence
+        "
+      >
+
+        <mat-option [value]="0">
+          None
+        </mat-option>
+
+        <mat-option [value]="1">
+          Daily
+        </mat-option>
+
+        <mat-option [value]="2">
+          Weekly
+        </mat-option>
+
+        <mat-option [value]="3">
+          Monthly
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <mat-form-field
+  appearance="outline"
+  class="full-width"
+>
+
+  <mat-label>
+
+    Tags
+
+  </mat-label>
+
+  <input
+    matInput
+    [(ngModel)]="editTask.tags"
+    placeholder="Shopping,Cooking,Laundry"
+  />
+
+</mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="saveTask()"
+    >
+
+      Save
+
+    </button>
+
+    <button
+      mat-button
+      (click)="cancelEdit()"
+    >
+
+      Cancel
+
+    </button>
+
+  </mat-card>
+
+</div>
+</mat-card>

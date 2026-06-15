@@ -1,0 +1,195 @@
+<mat-card>
+
+  <h2>Create Task</h2>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width"
+  >
+
+    <mat-label>
+      Title
+    </mat-label>
+
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="task.title"
+    />
+
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width"
+  >
+
+    <mat-label>
+      Description
+    </mat-label>
+
+    <textarea
+      matInput
+      rows="4"
+      [(ngModel)]="task.description"
+    >
+    </textarea>
+
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width"
+  >
+
+    <mat-label>
+      Estimated Minutes
+    </mat-label>
+
+    <input
+      matInput
+      type="number"
+      [(ngModel)]="task.estimatedMinutes"
+    />
+
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width"
+  >
+
+    <mat-label>
+      Due Date
+    </mat-label>
+
+    <input
+      matInput
+      type="date"
+      [(ngModel)]="task.dueDate"
+    />
+
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width"
+  >
+
+    <mat-label>
+      Priority
+    </mat-label>
+
+    <mat-select
+      [(ngModel)]="task.priority"
+    >
+
+      <mat-option [value]="0">
+
+        Low
+
+      </mat-option>
+
+      <mat-option [value]="1">
+
+        Medium
+
+      </mat-option>
+
+      <mat-option [value]="2">
+
+        High
+
+      </mat-option>
+
+    </mat-select>
+
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field
+  appearance="outline"
+  class="full-width"
+>
+
+  <mat-label>
+
+    Tags
+
+  </mat-label>
+
+  <input
+    matInput
+    [(ngModel)]="task.tags"
+    placeholder="Shopping,Cooking,Laundry"
+  />
+
+</mat-form-field>
+
+  <br>
+
+<mat-form-field
+  appearance="outline"
+  class="full-width"
+>
+
+  <mat-label>
+
+    Recurrence
+
+  </mat-label>
+
+  <mat-select
+    [(ngModel)]="task.recurrence"
+  >
+
+    <mat-option [value]="0">
+
+      None
+
+    </mat-option>
+
+    <mat-option [value]="1">
+
+      Daily
+
+    </mat-option>
+
+    <mat-option [value]="2">
+
+      Weekly
+
+    </mat-option>
+
+    <mat-option [value]="3">
+
+      Monthly
+
+    </mat-option>
+
+  </mat-select>
+
+</mat-form-field>
+
+  <br>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="createTask()"
+  >
+
+    Create Task
+
+  </button>
+
+</mat-card>

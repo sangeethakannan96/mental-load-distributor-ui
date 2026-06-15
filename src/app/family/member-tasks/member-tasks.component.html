@@ -1,0 +1,100 @@
+<h1>
+
+  {{ memberName }}'s Tasks
+
+</h1>
+
+<mat-card>
+
+  <h2>
+
+    Member Analytics
+
+  </h2>
+
+  <p>
+
+    Active Tasks:
+    {{ activeTaskCount }}
+
+  </p>
+
+  <p>
+
+    Completed Tasks:
+    {{ completedTaskCount }}
+
+  </p>
+
+  <p>
+
+    Total Minutes Assigned:
+    {{ totalMinutesAssigned }}
+
+  </p>
+
+  <p>
+
+    Availability Score:
+    {{ availabilityScore }}
+
+  </p>
+
+</mat-card>
+
+<br>
+
+<h1>
+
+  Member Tasks
+
+</h1>
+
+<h2>
+
+  Active Tasks
+
+</h2>
+
+<div
+  *ngIf="
+    assignedTasks.length === 0
+  "
+>
+
+  No active tasks.
+
+</div>
+
+<app-task-card
+  *ngFor="let task of assignedTasks"
+  [task]="task"
+  (complete)="completeTask($event)"
+  (delete)="deleteTask($event)">
+</app-task-card>
+
+<hr>
+
+<h2>
+
+  History
+
+</h2>
+
+<div
+  *ngIf="
+    completedTasks.length === 0
+  "
+>
+
+  No completed tasks.
+
+</div>
+
+<app-task-card
+  *ngFor="
+    let task of completedTasks
+  "
+  [task]="task"
+>
+</app-task-card>

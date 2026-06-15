@@ -1,0 +1,238 @@
+<h1 class="dashboard-title">
+
+  Family Dashboard
+
+</h1>
+
+<mat-grid-list
+  [cols]="dashboardCols"
+  rowHeight="160px"
+  gutterSize="16px"
+>
+
+  <mat-grid-tile>
+
+    <mat-card class="dashboard-card">
+
+      <h2>Total Tasks</h2>
+
+      <h1>
+
+        {{ dashboard?.totalTasks }}
+
+      </h1>
+
+    </mat-card>
+
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+
+    <mat-card class="dashboard-card">
+
+      <h2>Completed Tasks</h2>
+
+      <h1>
+
+        {{ dashboard?.completedTasks }}
+
+      </h1>
+
+    </mat-card>
+
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+
+    <mat-card class="dashboard-card">
+
+      <h2>Pending Tasks</h2>
+
+      <h1>
+
+        {{ dashboard?.pendingTasks }}
+
+      </h1>
+
+    </mat-card>
+
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+
+    <mat-card class="dashboard-card">
+
+      <h2>Unassigned Tasks</h2>
+
+      <h1>
+
+        {{ dashboard?.unassignedTasks }}
+
+      </h1>
+
+    </mat-card>
+
+  </mat-grid-tile>
+
+</mat-grid-list>
+
+<br>
+
+<br>
+
+  <mat-grid-list
+    [cols]="dashboardStatsCols"
+    rowHeight="140px"
+    gutterSize="16px"
+  >
+
+  <mat-grid-tile>
+
+    <mat-card class="dashboard-card overdue-card">
+
+      <h2>
+
+        ⚠ Overdue
+
+      </h2>
+
+      <h1>
+
+        {{ dashboard?.overdueTasks }}
+
+      </h1>
+
+    </mat-card>
+
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+
+    <mat-card class="dashboard-card today-card">
+
+      <h2>
+
+        📅 Due Today
+
+      </h2>
+
+      <h1>
+
+        {{ dashboard?.tasksDueToday }}
+
+      </h1>
+
+    </mat-card>
+
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+
+    <mat-card class="dashboard-card urgent-card">
+
+      <h2>
+
+        🔥 Urgent
+
+      </h2>
+
+      <h1>
+
+        {{ dashboard?.urgentTasks }}
+
+      </h1>
+
+    </mat-card>
+
+  </mat-grid-tile>
+
+</mat-grid-list>
+
+<mat-card class="dashboard-card">
+
+  <h2>Load Per User</h2>
+
+  <div *ngFor="let user of dashboard?.loadPerUser">
+
+    <p>
+
+      👤 {{ user.userName }}
+      :
+      {{ user.totalMinutes }} mins
+
+    </p>
+
+  </div>
+
+</mat-card>
+
+<br>
+
+<mat-card class="dashboard-card">
+
+  <h2>Workload Insights</h2>
+
+  <p>
+
+    👤 Most Loaded:
+    {{ dashboard?.mostLoadedUser }}
+
+  </p>
+
+  <p>
+
+    👤 Least Loaded:
+    {{ dashboard?.leastLoadedUser }}
+
+  </p>
+
+  <p>
+
+    ⚖ Average Load:
+    {{ dashboard?.averageLoad }}
+
+  </p>
+
+  <p>
+
+    📊 Imbalance Score:
+    {{ dashboard?.loadImbalanceScore }}
+
+  </p>
+
+</mat-card>
+
+<br>
+
+<mat-card class="dashboard-card">
+
+  <h2>Recommendation</h2>
+
+  <p class="recommendation">
+
+    {{ dashboard?.recommendation }}
+
+  </p>
+
+</mat-card>
+
+<br>
+
+<mat-card class="dashboard-card">
+
+  <h2>
+
+    Family Workload Chart
+
+  </h2>
+
+  <canvas
+    baseChart
+    [data]="barChartData"
+    [options]="barChartOptions"
+    [type]="barChartType"
+  >
+
+  </canvas>
+
+</mat-card>

@@ -1,0 +1,33 @@
+<mat-card class="family-card">
+
+  <h2>Create Family</h2>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width"
+  >
+
+    <mat-label>
+      Family Name
+    </mat-label>
+
+    <input
+      matInput
+      [(ngModel)]="familyName"
+    />
+
+  </mat-form-field>
+
+  <br>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="createFamily()"
+  >
+
+    Create Family
+
+  </button>
+
+</mat-card>

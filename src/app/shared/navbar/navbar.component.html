@@ -1,0 +1,53 @@
+<mat-toolbar color="primary">
+
+  <span>
+    Mental Load Distributor
+  </span>
+
+  <span class="spacer"></span>
+
+  <button
+    mat-button
+    routerLink="/dashboard"
+  >
+    Dashboard
+  </button>
+
+  <button
+    mat-button
+    routerLink="/tasks"
+  >
+    Tasks
+  </button>
+
+  <button
+    mat-button
+    routerLink="/create-task"
+  >
+    Create Task
+  </button>
+
+  <button
+    mat-button
+    routerLink="/family"
+  >
+    Family
+  </button>
+
+  <button
+  mat-button
+  routerLink="/profile"
+>
+
+  Profile
+
+</button>
+
+  <button
+    mat-button
+    (click)="logout()"
+  >
+    Logout
+  </button>
+
+</mat-toolbar>

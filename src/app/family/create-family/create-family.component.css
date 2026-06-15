@@ -1,0 +1,15 @@
+.family-card {
+
+  max-width: 600px;
+
+  margin: 32px auto;
+
+  padding: 24px;
+
+  border-radius: 12px;
+}
+
+.full-width {
+
+  width: 100%;
+}

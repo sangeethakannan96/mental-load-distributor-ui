@@ -1,0 +1,47 @@
+<mat-card class="auth-card">
+
+  <h2>Login</h2>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width"
+  >
+
+    <mat-label>
+      Email
+    </mat-label>
+
+    <input
+      matInput
+      type="email"
+      [(ngModel)]="email"
+    />
+
+  </mat-form-field>
+
+  <br>
+
+  
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="login()"
+  >
+
+    Login
+
+  </button>
+
+  <br><br>
+
+  <button
+    mat-button
+    routerLink="/register"
+  >
+
+    Create Account
+
+  </button>
+
+</mat-card>
