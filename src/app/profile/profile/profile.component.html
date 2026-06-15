@@ -71,6 +71,47 @@
 </mat-card>
 
 <mat-card
+  *ngIf="stats"
+  class="profile-card"
+>
+
+  <h2>
+
+    My Statistics
+
+  </h2>
+
+  <p>
+
+    📋 Total Tasks:
+    {{ stats.totalTasks }}
+
+  </p>
+
+  <p>
+
+    ✅ Completed:
+    {{ stats.completedTasks }}
+
+  </p>
+
+  <p>
+
+    ⏳ Pending:
+    {{ stats.pendingTasks }}
+
+  </p>
+
+  <p>
+
+    📈 Completion Rate:
+    {{ stats.completionRate }}%
+
+  </p>
+
+</mat-card>
+
+<mat-card
   *ngIf="isEditing"
   class="profile-card"
 >

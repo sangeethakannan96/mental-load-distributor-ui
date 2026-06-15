@@ -16,6 +16,8 @@ implements OnInit {
 
   isEditing = false;
 
+  stats: any;
+
 editUser: any = {};
 
   constructor(
@@ -26,6 +28,7 @@ editUser: any = {};
   ngOnInit() {
 
     this.loadProfile();
+     this.loadStats();
   }
 
   loadProfile() {
@@ -37,6 +40,16 @@ editUser: any = {};
         this.user = user;
       });
   }
+
+  loadStats() {
+
+  this.userService
+    .getMyStats()
+    .subscribe(stats => {
+
+      this.stats = stats;
+    });
+}
 
   getRoleName(
   role: number

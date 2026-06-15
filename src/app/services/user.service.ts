@@ -40,4 +40,11 @@ getCurrentUser() {
     `${this.apiUrl}/me`
   );
 }
+
+getMyStats() {
+
+  return this.http.get(
+    `${this.apiUrl}/me/stats`
+  );
+}
 }
