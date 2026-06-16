@@ -15,24 +15,34 @@
       "
     >
 
-      <p
-        *ngFor="
-          let task of dashboard.myActiveTasks
-        "
-      >
+      <div
+  *ngFor="
+    let task of dashboard.myActiveTasks
+  "
+>
 
-        📌 {{ task.title }}
+  <a
+    [routerLink]="[
+      '/tasks',
+      task.id
+    ]"
+  >
 
-         <button
-        mat-button
-        color="primary"
-        [routerLink]="[
-        '/tasks',
-         task.id]"> View </button>
-         
+    {{ task.title }}
 
-      </p>
+  </a>
 
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="completeTask(task.id)"
+  >
+
+    Complete
+
+  </button>
+
+</div>
      
     </div>
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DashboardService } from '../../services/dashboard.service';
 import { AuthService } from '../../services/auth.service';
+import { TaskService } from '../../services/task.service';
 import { ChartConfiguration,ChartType} from 'chart.js';
 
 @Component({
@@ -32,10 +33,16 @@ ChartConfiguration<'bar'>['options'] = {
   constructor(
     private dashboardService: DashboardService,
     private authService: AuthService,
+    private taskService: TaskService,
     private router: Router
   ) {}
 
   ngOnInit(): void {  
+    this.reloadDashboard();
+  }
+
+
+reloadDashboard() {
 
   this.dashboardService
   .getDashboard()
@@ -80,6 +87,16 @@ get dashboardStatsCols(): number {
   return window.innerWidth < 768
     ? 1
     : 3;
+}
+
+completeTask(taskId: string) {
+
+  this.taskService
+    .completeTask(taskId)
+    .subscribe(() => {
+
+      this.reloadDashboard();
+    });
 }
 
 logout() {
