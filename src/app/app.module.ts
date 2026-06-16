@@ -53,6 +53,7 @@ import { ConfirmDialogComponent }
 from './shared/confirm-dialog/confirm-dialog.component';
 import { MemberTasksComponent } from './family/member-tasks/member-tasks.component';
 import { ProfileComponent } from './profile/profile/profile.component';
+import { TaskDetailsComponent } from './tasks/task-details/task-details.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { ProfileComponent } from './profile/profile/profile.component';
     NavbarComponent,
     ConfirmDialogComponent,
     MemberTasksComponent,
-    ProfileComponent
+    ProfileComponent,
+    TaskDetailsComponent
   ],
   imports: [
     BrowserModule,

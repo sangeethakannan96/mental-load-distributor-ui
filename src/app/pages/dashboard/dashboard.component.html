@@ -1,3 +1,57 @@
+
+<mat-card>
+
+  <mat-card-title>
+
+    My Active Tasks
+
+  </mat-card-title>
+
+  <mat-card-content>
+
+    <div
+      *ngIf="
+        dashboard?.myActiveTasks?.length
+      "
+    >
+
+      <p
+        *ngFor="
+          let task of dashboard.myActiveTasks
+        "
+      >
+
+        📌 {{ task.title }}
+
+         <button
+        mat-button
+        color="primary"
+        [routerLink]="[
+        '/tasks',
+         task.id]"> View </button>
+         
+
+      </p>
+
+     
+    </div>
+
+    <p
+      *ngIf="
+        !dashboard?.myActiveTasks?.length
+      "
+    >
+
+      🎉 No active tasks
+
+    </p>
+
+  </mat-card-content>
+
+</mat-card>
+
+<br>
+
 <h1 class="dashboard-title">
 
   Family Dashboard

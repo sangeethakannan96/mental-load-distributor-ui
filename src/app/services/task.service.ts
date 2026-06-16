@@ -67,4 +67,11 @@ deleteTask(id: string) {
   );
 }
 
+getTask(id: string) {
+
+  return this.http.get(
+    `${this.apiUrl}/${id}`
+  );
+}
+
 }

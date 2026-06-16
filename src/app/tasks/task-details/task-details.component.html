@@ -1,0 +1,136 @@
+<mat-card *ngIf="task">
+
+  <mat-card-title>
+
+    {{ task.title }}
+
+  </mat-card-title>
+
+  <mat-card-content>
+
+    <p *ngIf="task.description">
+
+      {{ task.description }}
+
+    </p>
+
+    <mat-chip-set
+      *ngIf="task.tags?.length"
+    >
+
+      <mat-chip
+        *ngFor="let tag of task.tags"
+      >
+
+        {{ tag }}
+
+      </mat-chip>
+
+    </mat-chip-set>
+
+    <p>
+
+      ⏱ Estimated:
+      {{ task.estimatedMinutes }}
+      mins
+
+    </p>
+
+    <p *ngIf="task.dueDate">
+
+      📅 Due:
+      {{ task.dueDate | date:'mediumDate' }}
+
+    </p>
+
+    <p>
+
+      👤 Assigned To:
+
+      {{
+        task.assignedTo
+          ? task.assignedTo.name
+          : 'Unassigned'
+      }}
+
+    </p>
+
+    <p>
+
+      ✍ Created By:
+
+      {{
+        task.createdBy?.name
+      }}
+
+    </p>
+
+    <p>
+
+      Status:
+
+      <span *ngIf="task.isCompleted">
+
+        ✅ Completed
+
+      </span>
+
+      <span *ngIf="!task.isCompleted">
+
+        ⏳ Pending
+
+      </span>
+
+    </p>
+
+    <p>
+
+      Priority:
+
+      <span
+        *ngIf="task.priority === 0"
+      >
+
+        🟢 Low
+
+      </span>
+
+      <span
+        *ngIf="task.priority === 1"
+      >
+
+        🟡 Medium
+
+      </span>
+
+      <span
+        *ngIf="task.priority === 2"
+      >
+
+        🔴 High
+
+      </span>
+
+    </p>
+
+    <p *ngIf="task.recurrence === 1">
+
+      🔁 Daily
+
+    </p>
+
+    <p *ngIf="task.recurrence === 2">
+
+      🔁 Weekly
+
+    </p>
+
+    <p *ngIf="task.recurrence === 3">
+
+      🔁 Monthly
+
+    </p>
+
+  </mat-card-content>
+
+</mat-card>
