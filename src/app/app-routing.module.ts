@@ -13,6 +13,8 @@ import { HomeRedirectGuard } from './guards/home-redirect.guard';
 import { MemberTasksComponent } from './family/member-tasks/member-tasks.component';
 import { ProfileComponent } from './profile/profile/profile.component';
 import { TaskDetailsComponent } from './tasks/task-details/task-details.component';
+import { HouseholdSetupComponent } from './pages/household/household-setup/household-setup.component';
+import { HouseholdProfileComponent } from './pages/household/household-profile/household-profile.component';
 
 const routes: Routes = [
  { path: '', canActivate: [HomeRedirectGuard], component: LoginComponent},
@@ -25,7 +27,9 @@ const routes: Routes = [
   {path: 'family', component: FamilyMembersComponent, canActivate: [AuthGuard]},
   {path: 'member-tasks/:userId', component: MemberTasksComponent, canActivate: [AuthGuard]},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
-  {path: 'tasks/:id',component: TaskDetailsComponent, canActivate: [AuthGuard]}
+  {path: 'tasks/:id',component: TaskDetailsComponent, canActivate: [AuthGuard]},
+  {path: 'household-setup',component: HouseholdSetupComponent, canActivate: [AuthGuard]},
+  {path: 'household-profile',component: HouseholdProfileComponent, canActivate: [AuthGuard]}
 
 
 ];

@@ -1,0 +1,45 @@
+<mat-card>
+
+  <h2>
+    Household Profile
+  </h2>
+
+  <p>
+
+    Keep your household
+    information updated so
+    AI recommendations stay
+    accurate.
+
+  </p>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width">
+
+    <textarea
+      matInput
+      rows="12"
+      [(ngModel)]="
+        householdDescription
+      ">
+    </textarea>
+
+  </mat-form-field>
+
+  <mat-error
+    *ngIf="errorMessage">
+
+    {{ errorMessage }}
+
+  </mat-error>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="save()">
+
+    Save
+  </button>
+
+</mat-card>

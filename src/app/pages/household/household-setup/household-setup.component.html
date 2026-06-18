@@ -1,0 +1,49 @@
+<mat-card>
+
+  <h2>
+    Tell us about your household
+  </h2>
+
+  <p>
+
+    Describe your family,
+    chores, childcare,
+    routines and responsibilities.
+
+  </p>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width"
+  >
+
+    <textarea
+      matInput
+      rows="10"
+      [(ngModel)]="
+        householdDescription
+      "
+    >
+    </textarea>
+
+  </mat-form-field>
+
+  <mat-error
+    *ngIf="errorMessage"
+  >
+
+    {{ errorMessage }}
+
+  </mat-error>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="save()"
+  >
+
+    Save
+
+  </button>
+
+</mat-card>

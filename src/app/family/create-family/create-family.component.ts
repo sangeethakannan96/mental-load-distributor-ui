@@ -44,7 +44,7 @@ export class CreateFamilyComponent {
 
         console.log(response);
 
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/household-setup']);
       });
   }
 }
