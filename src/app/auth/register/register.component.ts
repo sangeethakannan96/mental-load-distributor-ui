@@ -17,6 +17,8 @@ export class RegisterComponent {
 
   password = '';
 
+  errorMessage = '';
+
   constructor(
     private authService: AuthService,
     private router: Router
@@ -24,18 +26,65 @@ export class RegisterComponent {
 
   register() {
 
-    const request: RegisterRequest = {
+  this.errorMessage = '';
 
-      name: this.name,
+  if (!this.name?.trim()) {
 
-      email: this.email,
+    this.errorMessage =
+      'Name is required';
 
-      password: this.password
-    };
+    return;
+  }
 
-    this.authService
-      .register(request)
-      .subscribe((response: any) => {
+  if (!this.email?.trim()) {
+
+    this.errorMessage =
+      'Email is required';
+
+    return;
+  }
+
+  if (
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      .test(this.email)
+  ) {
+
+    this.errorMessage =
+      'Invalid email address';
+
+    return;
+  }
+
+  if (!this.password) {
+
+    this.errorMessage =
+      'Password is required';
+
+    return;
+  }
+
+  if (this.password.length < 6) {
+
+    this.errorMessage =
+      'Password must be at least 6 characters';
+
+    return;
+  }
+
+  const request: RegisterRequest = {
+
+    name: this.name.trim(),
+
+    email: this.email.trim(),
+
+    password: this.password
+  };
+
+  this.authService
+    .register(request)
+    .subscribe({
+
+      next: (response: any) => {
 
         localStorage.setItem(
           'token',
@@ -44,20 +93,36 @@ export class RegisterComponent {
 
         localStorage.setItem(
           'user',
-          JSON.stringify(response.user)
+          JSON.stringify(
+            response.user
+          )
         );
 
-        this.authService .getCurrentUser() .subscribe((user: any) => {
+        this.authService
+          .getCurrentUser()
+          .subscribe((user: any) => {
 
-    if (user.familyId) {
+            if (user.familyId) {
 
-      this.router.navigate(['/dashboard']);
+              this.router.navigate([
+                '/dashboard'
+              ]);
 
-    } else {
+            } else {
 
-      this.router.navigate(['/create-family']);
-    }
-  });
-      });
-  }
+              this.router.navigate([
+                '/create-family'
+              ]);
+            }
+          });
+      },
+
+     error: (err) => {
+
+  this.errorMessage =
+    err.error ||
+    'Registration failed';
+}
+    });
+}
 }

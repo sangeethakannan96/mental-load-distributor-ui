@@ -12,13 +12,26 @@ from '../../services/family.service';
 export class CreateFamilyComponent {
 
   familyName = '';
+  errorMessage = '';
 
   constructor(
     private familyService: FamilyService,
     private router: Router
   ) {}
 
+ 
   createFamily() {
+
+    this.errorMessage = '';
+
+     if (!this.familyName.trim()) {
+
+  this.errorMessage =
+    'Family name is required';
+
+  return;
+}
+
 
     const request = {
 

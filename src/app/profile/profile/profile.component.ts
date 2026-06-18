@@ -20,6 +20,10 @@ implements OnInit {
 
 editUser: any = {};
 
+errorMessage = '';
+
+successMessage = '';
+
   constructor(
     private userService:
       UserService
@@ -88,12 +92,52 @@ startEdit() {
 
 saveProfile() {
 
+  this.errorMessage = '';
+
+  if (!this.editUser.name?.trim()) {
+
+    this.errorMessage =
+      'Name is required';
+
+    return;
+  }
+
+  if (!this.editUser.email?.trim()) {
+
+    this.errorMessage =
+      'Email is required';
+
+    return;
+  }
+
+  if (
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      .test(this.editUser.email)
+  ) {
+
+    this.errorMessage =
+      'Invalid email address';
+
+    return;
+  }
+
+  if (
+    this.editUser.availabilityScore < 0 ||
+    this.editUser.availabilityScore > 100
+  ) {
+
+    this.errorMessage =
+      'Availability must be between 0 and 100';
+
+    return;
+  }
+
   const payload = {
 
     ...this.editUser,
 
     skills:
-      this.editUser.skills
+      (this.editUser.skills || '')
         .split(',')
         .map((s: string) =>
           s.trim())
@@ -105,11 +149,27 @@ saveProfile() {
       this.user.id,
       payload
     )
-    .subscribe(() => {
+    .subscribe({
 
-      this.loadProfile();
+      next: () => {
 
-      this.isEditing = false;
+        this.loadProfile();
+
+        this.isEditing = false;
+
+        // Either SnackBar...
+        // this.snackBar.open(...)
+
+        // Or NotificationService...
+        // this.notificationService.success(...)
+
+      },
+
+      error: () => {
+
+        this.errorMessage =
+          'Unable to update profile';
+      }
     });
 }
 }

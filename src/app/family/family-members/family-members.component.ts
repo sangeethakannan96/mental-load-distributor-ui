@@ -37,6 +37,8 @@ implements OnInit {
 
   memberAvailabilityScore = 100;
 
+  errorMessage = '';
+
   constructor(
   private familyService: FamilyService,
   private userService: UserService,
@@ -64,6 +66,46 @@ loadUsers() {
 
   addMember() {
 
+    this.errorMessage = '';
+
+if (!this.memberName?.trim()) {
+
+  this.errorMessage =
+    'Name is required';
+
+  return;
+}
+
+if (!this.memberEmail?.trim()) {
+
+  this.errorMessage =
+    'Email is required';
+
+  return;
+}
+
+if (
+  !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    .test(this.memberEmail)
+) {
+
+  this.errorMessage =
+    'Invalid email address';
+
+  return;
+}
+
+if (
+  this.memberAvailabilityScore < 0 ||
+  this.memberAvailabilityScore > 100
+) {
+
+  this.errorMessage =
+    'Availability must be between 0 and 100';
+
+  return;
+}
+
   const request = {
 
     name: this.memberName,
@@ -84,18 +126,32 @@ loadUsers() {
 
   this.familyService
     .addMember(request)
-    .subscribe(response => {
+    .subscribe({
+  next: response => {
 
-      console.log(response);
+    this.snackBar.open(
+      'Member added successfully',
+      'Close',
+      {
+        duration: 3000
+      }
+    );
 
-      this.loadUsers();
+    this.loadUsers();
 
-      this.memberName = '';
+    this.memberName = '';
+    this.memberEmail = '';
+    this.memberAvailabilityScore = 100;
+    this.memberRole = 'Other';
+    this.memberSkills = '';
+  },
 
-      this.memberEmail = '';
+  error: () => {
 
-      this.memberAvailabilityScore = 100;
-    });
+    this.errorMessage =
+      'Unable to add member';
+  }
+});
 }
 
 viewTasks(userId: string) {
@@ -126,6 +182,46 @@ editMember(user: any) {
 
 saveMember() {
 
+  this.errorMessage = '';
+
+if (!this.editingUser.name?.trim()) {
+
+  this.errorMessage =
+    'Name is required';
+
+  return;
+}
+
+if (!this.editingUser.email?.trim()) {
+
+  this.errorMessage =
+    'Email is required';
+
+  return;
+}
+
+if (
+  !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    .test(this.editingUser.email)
+) {
+
+  this.errorMessage =
+    'Invalid email address';
+
+  return;
+}
+
+if (
+  this.editingUser.availabilityScore < 0 ||
+  this.editingUser.availabilityScore > 100
+) {
+
+  this.errorMessage =
+    'Availability must be between 0 and 100';
+
+  return;
+}
+
   const payload = {
 
     ...this.editingUser,
@@ -141,12 +237,28 @@ saveMember() {
       this.editingUser.id,
       payload
     )
-    .subscribe(() => {
+    .subscribe({
+  next: () => {
 
-      this.loadUsers();
+     this.snackBar.open(
+      'Member updated successfully',
+      'Close',
+      {
+        duration: 3000
+      }
+    );
 
-      this.editingUser = null;
-    });
+    this.loadUsers();
+
+    this.editingUser = null;
+  },
+
+  error: () => {
+
+    this.errorMessage =
+      'Unable to update member';
+  }
+});
 }
 
 deleteMember(id: string) {

@@ -435,6 +435,16 @@
 
 </mat-form-field>
 
+    <mat-error
+  *ngIf="
+    editErrorMessage
+  "
+>
+
+  {{ editErrorMessage }}
+
+</mat-error>
+
     <button
       mat-raised-button
       color="primary"

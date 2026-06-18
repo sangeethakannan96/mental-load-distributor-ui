@@ -39,6 +39,8 @@ export class TaskCardComponent {
   isEditing = false;
   editTask: any = {};
 
+  editErrorMessage = '';
+
   constructor(private taskService: TaskService,
               private notificationService: NotificationService,
               private dialog: MatDialog) {}
@@ -164,6 +166,42 @@ startEdit() {
 
 saveTask() {
 
+   this.editErrorMessage = '';
+
+  if (!this.editTask.title?.trim()) {
+
+    this.editErrorMessage =
+      'Title is required';
+
+    return;
+  }
+
+  if (
+    !this.editTask.estimatedMinutes ||
+    this.editTask.estimatedMinutes <= 0
+  ) {
+
+    this.editErrorMessage =
+      'Estimated minutes must be greater than 0';
+
+    return;
+  }
+
+  if (
+    this.editTask.dueDate &&
+    this.editTask.dueDate <
+      new Date()
+        .toISOString()
+        .split('T')[0]
+  ) {
+
+    this.editErrorMessage =
+      'Due date cannot be in the past';
+
+    return;
+  }
+
+
   const payload = {
 
     ...this.editTask,
@@ -179,17 +217,22 @@ saveTask() {
       this.task.id,
       payload
     )
-    .subscribe(() => {
+    .subscribe({
+      next: () => {
 
-     
+        this.notificationService
+          .success(
+            'Task updated successfully'
+          );
 
-      this.notificationService.success(
-        'Task updated successfully'
-      );
+        this.isEditing = false;
+      },
 
-      this.isEditing = false;
+      error: () => {
 
-      this.updated.emit();
+        this.editErrorMessage =
+          'Unable to update task';
+      }
     });
 }
 

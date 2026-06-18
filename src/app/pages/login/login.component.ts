@@ -10,6 +10,8 @@ export class LoginComponent {
 
   email = '';
 
+errorMessage = '';
+
   constructor(
     private authService: AuthService,
     private router: Router
@@ -17,22 +19,45 @@ export class LoginComponent {
 
   login() {
 
-    this.authService.login(this.email)
-      .subscribe((response: any) => {
+    this.errorMessage = '';
 
-        localStorage.setItem('token', response.token);
+this.authService
+  .login(this.email)
+  .subscribe({
+    next: (response: any) => {
 
-        this.authService .getCurrentUser().subscribe((user: any) => {
+      localStorage.setItem(
+        'token',
+        response.token
+      );
 
-    if (user.familyId) {
+      this.authService
+        .getCurrentUser()
+        .subscribe((user: any) => {
 
-      this.router.navigate(['/dashboard']);
+          if (user.familyId) {
 
-    } else {
+            this.router.navigate([
+              '/dashboard'
+            ]);
 
-      this.router.navigate(['/create-family']);
+          } else {
+
+            this.router.navigate([
+              '/create-family'
+            ]);
+          }
+        });
+    },
+
+    error: (err) => {
+
+      console.error(err);
+
+      this.errorMessage =
+        'Login failed. Please check your email.';
     }
   });
-      });
+
   }
 }

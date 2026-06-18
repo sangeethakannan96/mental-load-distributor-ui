@@ -2,36 +2,37 @@
 
   <h2>Login</h2>
 
-  <mat-form-field
-    appearance="outline"
-    class="full-width"
-  >
+ <mat-form-field>
 
-    <mat-label>
-      Email
-    </mat-label>
+  <input
+    matInput
+    [(ngModel)]="email"
+    required
+  />
 
-    <input
-      matInput
-      type="email"
-      [(ngModel)]="email"
-    />
+  <mat-error *ngIf="!email">
+    Email is required
+  </mat-error>
 
-  </mat-form-field>
+</mat-form-field>
 
   <br>
 
   
 
   <button
-    mat-raised-button
-    color="primary"
-    (click)="login()"
-  >
+  mat-raised-button
+  color="primary"
+  [disabled]="!email"
+  (click)="login()"
+>
+  Login
+</button>
 
-    Login
+  <mat-error *ngIf="errorMessage">
+  {{ errorMessage }}
+</mat-error>
 
-  </button>
 
   <br><br>
 
