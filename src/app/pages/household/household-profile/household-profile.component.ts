@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FamilyProfileService } from 'src/app/services/family-profile.service';
 
 @Component({
@@ -11,11 +12,14 @@ implements OnInit {
 
   householdDescription = '';
 
+  suggestions: any[] = [];
+
   errorMessage = '';
 
   constructor(
     private familyProfileService:
-      FamilyProfileService
+      FamilyProfileService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -61,4 +65,21 @@ implements OnInit {
         );
       });
   }
+
+  generateSuggestions() {
+
+  this.familyProfileService
+    .generateTasks()
+    .subscribe((response: any) => {
+
+      sessionStorage.setItem(
+        'suggestions',
+        JSON.stringify(response)
+      );
+
+      this.router.navigate([
+        '/household-review'
+      ]);
+    });
+}
 }

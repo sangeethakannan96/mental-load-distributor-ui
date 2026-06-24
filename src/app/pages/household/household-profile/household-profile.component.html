@@ -42,4 +42,59 @@
     Save
   </button>
 
+  <button
+  mat-raised-button
+  color="accent"
+  (click)="generateSuggestions()">
+
+  Generate Suggestions
+
+</button>
+
+<div
+  *ngIf="suggestions.length">
+
+  <h3>
+    Suggested Tasks
+  </h3>
+
+  <mat-card
+    *ngFor="
+      let suggestion
+      of suggestions
+    ">
+
+    <h4>
+      {{ suggestion.title }}
+    </h4>
+
+    <p>
+      {{ suggestion.description }}
+    </p>
+
+    <p>
+
+      Category:
+      {{ suggestion.category }}
+
+    </p>
+
+    <p>
+
+      Recurrence:
+      {{ suggestion.recurrence }}
+
+    </p>
+
+    <p>
+
+      Suggested Role:
+      {{ suggestion.suggestedAssigneeRole }}
+
+    </p>
+
+  </mat-card>
+
+</div>
+
 </mat-card>

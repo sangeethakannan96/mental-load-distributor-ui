@@ -1,0 +1,56 @@
+<h2>
+  Review Suggested Tasks
+</h2>
+
+<p>
+  {{ suggestions.length }}
+  suggestions found
+</p>
+
+<mat-card>
+
+  <h2>
+    Review Suggested Tasks
+  </h2>
+
+  <mat-card
+    *ngFor="let suggestion of suggestions">
+
+    <mat-checkbox
+      [(ngModel)]="suggestion.selected"
+      name="selected">
+
+      {{ suggestion.title }}
+
+    </mat-checkbox>
+
+    <p>
+      {{ suggestion.description }}
+    </p>
+
+    <p>
+      Category:
+      {{ suggestion.category }}
+    </p>
+
+    <p>
+      Recurrence:
+      {{ suggestion.recurrence }}
+    </p>
+
+    <p>
+      Suggested Role:
+      {{ suggestion.suggestedAssigneeRole }}
+    </p>
+
+  </mat-card>
+
+  <button
+  mat-raised-button
+  color="primary">
+
+  Create Tasks
+
+</button>
+
+</mat-card>

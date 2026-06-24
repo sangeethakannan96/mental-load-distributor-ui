@@ -49,6 +49,8 @@ from '@angular/material/snack-bar';
 import { MatDialogModule }
 from '@angular/material/dialog';
 
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 import { ConfirmDialogComponent }
 from './shared/confirm-dialog/confirm-dialog.component';
 import { MemberTasksComponent } from './family/member-tasks/member-tasks.component';
@@ -56,6 +58,7 @@ import { ProfileComponent } from './profile/profile/profile.component';
 import { TaskDetailsComponent } from './tasks/task-details/task-details.component';
 import { HouseholdSetupComponent } from './pages/household/household-setup/household-setup.component';
 import { HouseholdProfileComponent } from './pages/household/household-profile/household-profile.component';
+import { HouseholdReviewComponent } from './pages/household/household-review/household-review.component';
 
 
 @NgModule({
@@ -75,7 +78,8 @@ import { HouseholdProfileComponent } from './pages/household/household-profile/h
     ProfileComponent,
     TaskDetailsComponent,
     HouseholdSetupComponent,
-    HouseholdProfileComponent
+    HouseholdProfileComponent,
+    HouseholdReviewComponent
   ],
   imports: [
     BrowserModule,
@@ -94,7 +98,8 @@ import { HouseholdProfileComponent } from './pages/household/household-profile/h
     MatGridListModule,
     NgChartsModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCheckboxModule
   ],
 
   providers: [

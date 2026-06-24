@@ -37,4 +37,12 @@ export class FamilyProfileService {
   );
 }
 
+generateTasks() {
+
+  return this.http.post(
+    `${this.apiUrl}/generate-tasks`,
+    {}
+  );
+}
+
 }
