@@ -45,4 +45,14 @@ generateTasks() {
   );
 }
 
+approveSuggestions(suggestions: any[]) {
+
+  return this.http.post(
+    `${this.apiUrl}/approve-suggestions`,
+    {
+      suggestions
+    }
+  );
+}
+
 }
