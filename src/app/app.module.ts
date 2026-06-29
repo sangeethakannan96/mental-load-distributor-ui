@@ -59,7 +59,8 @@ import { TaskDetailsComponent } from './tasks/task-details/task-details.componen
 import { HouseholdSetupComponent } from './pages/household/household-setup/household-setup.component';
 import { HouseholdProfileComponent } from './pages/household/household-profile/household-profile.component';
 import { HouseholdReviewComponent } from './pages/household/household-review/household-review.component';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,9 @@ import { HouseholdReviewComponent } from './pages/household/household-review/hou
     NgChartsModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
 
   providers: [

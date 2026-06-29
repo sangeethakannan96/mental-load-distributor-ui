@@ -1,57 +1,144 @@
-<h2>
-  Review Suggested Tasks
-</h2>
+<h2>Review Suggested Tasks</h2>
 
-<p>
-  {{ suggestions.length }}
-  suggestions found
-</p>
+<p>{{ suggestions.length }} suggestions found</p>
 
 <mat-card>
 
-  <h2>
-    Review Suggested Tasks
-  </h2>
-
   <mat-card
-    *ngFor="let suggestion of suggestions">
+    *ngFor="let suggestion of suggestions; let i = index"
+    class="mb-3">
 
     <mat-checkbox
       [(ngModel)]="suggestion.selected"
-      name="selected">
+      [name]="'selected' + i">
 
-      {{ suggestion.title }}
+      Approve
 
     </mat-checkbox>
 
-    <p>
-      {{ suggestion.description }}
-    </p>
+    <br><br>
 
-    <p>
-      Category:
-      {{ suggestion.category }}
-    </p>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Title</mat-label>
+      <input
+        matInput
+        [(ngModel)]="suggestion.title"
+        [name]="'title' + i">
+    </mat-form-field>
 
-    <p>
-      Recurrence:
-      {{ suggestion.recurrence }}
-    </p>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        rows="2"
+        [(ngModel)]="suggestion.description"
+        [name]="'description' + i">
+      </textarea>
+    </mat-form-field>
 
-    <p>
-      Suggested Role:
-      {{ suggestion.suggestedAssigneeRole }}
-    </p>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Category</mat-label>
+      <input
+        matInput
+        [(ngModel)]="suggestion.category"
+        [name]="'category' + i">
+    </mat-form-field>
+
+    <mat-form-field>
+  <mat-label>Start Date</mat-label>
+  <input
+    matInput
+    [matDatepicker]="picker"
+    [(ngModel)]="suggestion.startDate"
+    [name]="'startDate' + i">
+
+  <mat-datepicker-toggle
+    matIconSuffix
+    [for]="picker">
+  </mat-datepicker-toggle>
+
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Estimated Minutes</mat-label>
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="suggestion.estimatedMinutes"
+        [name]="'minutes' + i">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Priority</mat-label>
+
+      <mat-select
+        [(ngModel)]="suggestion.priority"
+        [name]="'priority' + i">
+
+        <mat-option [value]="0">
+          Low
+        </mat-option>
+
+        <mat-option [value]="1">
+          Medium
+        </mat-option>
+
+        <mat-option [value]="2">
+          High
+        </mat-option>
+
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+
+      <mat-label>Recurrence</mat-label>
+
+      <mat-select
+        [(ngModel)]="suggestion.recurrence"
+        [name]="'recurrence' + i">
+
+        <mat-option value="None">
+          None
+        </mat-option>
+
+        <mat-option value="Daily">
+          Daily
+        </mat-option>
+
+        <mat-option value="Weekly">
+          Weekly
+        </mat-option>
+
+        <mat-option value="Monthly">
+          Monthly
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+
+      <mat-label>Suggested Assignee</mat-label>
+
+      <input
+        matInput
+        [(ngModel)]="suggestion.suggestedAssigneeRole"
+        [name]="'assignee' + i">
+
+    </mat-form-field>
 
   </mat-card>
 
   <button
-  mat-raised-button
-  color="primary"
-  (click)="createTasks()">
+      mat-raised-button
+      color="primary"
+      (click)="createTasks()">
 
-  Create Selected Tasks
+      Create Selected Tasks
 
-</button>
+  </button>
 
 </mat-card>
