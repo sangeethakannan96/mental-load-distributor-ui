@@ -1,0 +1,13 @@
+.task-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.task-row a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500;
+}

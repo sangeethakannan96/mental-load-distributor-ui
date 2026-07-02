@@ -4,19 +4,19 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { LoginComponent } from './pages/login/login.component';
+import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
+import { LoginComponent } from './auth/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { CreateTaskComponent } from './pages/create-task/create-task.component';
-import { TaskListComponent } from './pages/task-list/task-list.component';
-import { TaskCardComponent } from './tasks/task-card/task-card.component';
+import { CreateTaskComponent } from './tasks/create-task/create-task.component';
+import { TaskListComponent } from './tasks/task-list/task-list.component';
+import { TaskCardComponent } from './shared/task-card/task-card.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { CreateFamilyComponent } from './family/create-family/create-family.component';
 import { FamilyMembersComponent } from './family/family-members/family-members.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavbarComponent } from './shared/navbar/navbar.component';
+import { NavbarComponent } from './layout/navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { MatButtonModule }
@@ -24,6 +24,8 @@ from '@angular/material/button';
 
 import { MatIconModule }
 from '@angular/material/icon';
+
+import { MatMenuModule } from '@angular/material/menu';
 
 import { MatFormFieldModule }
 from '@angular/material/form-field';
@@ -56,11 +58,15 @@ from './shared/confirm-dialog/confirm-dialog.component';
 import { MemberTasksComponent } from './family/member-tasks/member-tasks.component';
 import { ProfileComponent } from './profile/profile/profile.component';
 import { TaskDetailsComponent } from './tasks/task-details/task-details.component';
-import { HouseholdSetupComponent } from './pages/household/household-setup/household-setup.component';
-import { HouseholdProfileComponent } from './pages/household/household-profile/household-profile.component';
-import { HouseholdReviewComponent } from './pages/household/household-review/household-review.component';
+import { HouseholdSetupComponent } from './family/household-setup/household-setup.component';
+import { HouseholdProfileComponent } from './family/household-profile/household-profile.component';
+import { ReviewSuggestionsComponent } from './ai/review-suggestions/review-suggestions.component';
+import { HomeComponent } from './home/home.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -80,7 +86,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     TaskDetailsComponent,
     HouseholdSetupComponent,
     HouseholdProfileComponent,
-    HouseholdReviewComponent
+    ReviewSuggestionsComponent,
+    HomeComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -91,6 +99,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    MatMenuModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
@@ -103,6 +112,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSidenavModule,
+    MatListModule
   ],
 
   providers: [

@@ -9,7 +9,7 @@ from '@angular/material/dialog';
 import {
   ConfirmDialogComponent
 }
-from '../../shared/confirm-dialog/confirm-dialog.component';
+from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-task-card',

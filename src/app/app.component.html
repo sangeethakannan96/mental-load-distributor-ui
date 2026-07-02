@@ -1,7 +1,26 @@
-<app-navbar
-  *ngIf="isLoggedIn()">
-</app-navbar>
+<app-navbar *ngIf="isLoggedIn()"></app-navbar>
 
-<div class="app-container">
+<mat-sidenav-container class="app-container" *ngIf="isLoggedIn()">
+
+  <mat-sidenav
+    mode="side"
+    opened
+    class="sidebar">
+
+    <app-sidebar></app-sidebar>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
+
+<div *ngIf="!isLoggedIn()">
   <router-outlet></router-outlet>
 </div>

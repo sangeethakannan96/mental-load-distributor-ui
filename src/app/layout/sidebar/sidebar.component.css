@@ -1,0 +1,54 @@
+:host {
+    display: block;
+    height: 100%;
+}
+
+.active {
+    background: rgba(63, 81, 181, 0.12);
+    border-radius: 8px;
+}
+
+.sidebar-group {
+    margin: 8px 0;
+}
+
+.sidebar-group-header {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    color: rgba(0, 0, 0, 0.7);
+    font-weight: 400;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-family: inherit;
+}
+
+.sidebar-group-header mat-icon {
+    margin-right: 12px;
+}
+
+mat-nav-list a.mat-list-item,
+mat-nav-list a.mat-list-item span,
+.sidebar-group-header span {
+    font-weight: 400;
+}
+
+.sidebar-group-spacer {
+    flex: 1;
+}
+
+.sidebar-subitem {
+    padding-left: 32px;
+}
+
+.sidebar-subitem a,
+.sidebar-subitem a span,
+mat-nav-list a.mat-list-item,
+mat-nav-list a.mat-list-item span {
+    font-size: 0.95rem;
+    font-family: inherit;
+}
+
+mat-icon {
+    margin-right: 16px;
+}

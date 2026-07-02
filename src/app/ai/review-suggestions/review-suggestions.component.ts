@@ -4,11 +4,11 @@ import { FamilyProfileService } from 'src/app/services/family-profile.service';
 import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
-  selector: 'app-household-review',
-  templateUrl: './household-review.component.html',
-  styleUrls: ['./household-review.component.css']
+  selector: 'app-review-suggestions',
+  templateUrl: './review-suggestions.component.html',
+  styleUrls: ['./review-suggestions.component.css']
 })
-export class HouseholdReviewComponent implements OnInit {
+export class ReviewSuggestionsComponent implements OnInit {
 
 
   suggestions: any[] = [];
