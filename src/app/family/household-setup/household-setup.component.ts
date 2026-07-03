@@ -43,7 +43,7 @@ export class HouseholdSetupComponent {
       .subscribe(() => {
 
         this.router.navigate(
-          ['/dashboard']
+          ['/household-profile']
         );
       });
   }

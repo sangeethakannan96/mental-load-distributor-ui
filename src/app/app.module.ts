@@ -67,6 +67,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { AiAssistantComponent } from './ai/ai-assistant/ai-assistant.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { MatListModule } from '@angular/material/list';
     HouseholdProfileComponent,
     ReviewSuggestionsComponent,
     HomeComponent,
-    SidebarComponent
+    SidebarComponent,
+    AiAssistantComponent
   ],
   imports: [
     BrowserModule,

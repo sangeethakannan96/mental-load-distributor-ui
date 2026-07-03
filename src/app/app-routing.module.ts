@@ -15,6 +15,7 @@ import { TaskDetailsComponent } from './tasks/task-details/task-details.componen
 import { HouseholdSetupComponent } from './family/household-setup/household-setup.component';
 import { HouseholdProfileComponent } from './family/household-profile/household-profile.component';
 import { ReviewSuggestionsComponent } from './ai/review-suggestions/review-suggestions.component';
+import { AiAssistantComponent } from './ai/ai-assistant/ai-assistant.component';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
@@ -32,7 +33,8 @@ const routes: Routes = [
   {path: 'tasks/:id',component: TaskDetailsComponent, canActivate: [AuthGuard]},
   {path: 'household-setup',component: HouseholdSetupComponent, canActivate: [AuthGuard]},
   {path: 'household-profile',component: HouseholdProfileComponent, canActivate: [AuthGuard]},
-  {path: 'review-suggestions',component: ReviewSuggestionsComponent, canActivate: [AuthGuard]}
+  {path: 'review-suggestions',component: ReviewSuggestionsComponent, canActivate: [AuthGuard]},
+  {path: 'ai-assistant',component: AiAssistantComponent, canActivate: [AuthGuard]}
 
 
 ];

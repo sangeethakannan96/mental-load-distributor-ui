@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AiService } from 'src/app/services/ai.service';
 import { FamilyProfileService } from 'src/app/services/family-profile.service';
 
 @Component({
@@ -19,6 +20,7 @@ implements OnInit {
   constructor(
     private familyProfileService:
       FamilyProfileService,
+    private AiService: AiService,
     private router: Router
   ) {}
 
@@ -68,8 +70,8 @@ implements OnInit {
 
   generateSuggestions() {
 
-  this.familyProfileService
-    .generateTasks()
+  this.AiService
+    .generatehouseholdSuggestions()
     .subscribe((response: any) => {
 
       sessionStorage.setItem(
@@ -78,7 +80,7 @@ implements OnInit {
       );
 
       this.router.navigate([
-        '/household-review'
+        '/review-suggestions'
       ]);
     });
 }

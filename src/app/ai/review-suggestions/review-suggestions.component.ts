@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FamilyProfileService } from 'src/app/services/family-profile.service';
+import { AiService } from 'src/app/services/ai.service';
 import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class ReviewSuggestionsComponent implements OnInit {
 selectedSuggestions: any[] = [];
 
 constructor(
-  private familyProfileService: FamilyProfileService,
+  private aiService: AiService,
   private notificationService: NotificationService,
   private router: Router
 ) {}
@@ -61,7 +61,7 @@ createTasks() {
     return;
   }
 
-  this.familyProfileService
+  this.aiService
     .approveSuggestions(selected)
     .subscribe(() => {
 

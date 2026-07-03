@@ -1,0 +1,45 @@
+<mat-card>
+
+    <h2>
+        AI Assistant
+    </h2>
+
+    <p>
+        Describe what you need help with.
+    </p>
+
+    <mat-form-field appearance="outline" class="full-width">
+
+        <mat-label>
+            Prompt
+        </mat-label>
+
+        <textarea
+            matInput
+            rows="8"
+            [(ngModel)]="prompt">
+        </textarea>
+
+    </mat-form-field>
+
+    <p>
+
+        Example:
+
+        Tomorrow my parents are visiting.
+        Need to clean the house,
+        buy snacks,
+        prepare dinner.
+
+    </p>
+
+    <button
+        mat-raised-button
+        color="primary"
+        (click)="generateSuggestions()">
+
+        Generate Suggestions
+
+    </button>
+
+</mat-card>
