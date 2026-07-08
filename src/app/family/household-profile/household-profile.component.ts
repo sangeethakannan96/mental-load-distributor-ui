@@ -68,10 +68,10 @@ implements OnInit {
       });
   }
 
-  generateSuggestions() {
+  generateHouseholdPlan() {
 
   this.AiService
-    .generatehouseholdSuggestions()
+    .generatehouseholdPlan()
     .subscribe((response: any) => {
 
       sessionStorage.setItem(

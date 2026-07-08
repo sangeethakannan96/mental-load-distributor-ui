@@ -13,19 +13,19 @@ export class AiService {
     private http: HttpClient
   ) { }
 
-generatehouseholdSuggestions() {
+generatehouseholdPlan() {
 
   return this.http.post(
-    `${this.apiUrl}/generate-household-suggestions`,
+    `${this.apiUrl}/generate-household-plan`,
     {}
   );
 }
 
-generateTaskSuggestions(prompt: string) {
+generateEventPlan(prompt: string) {
 
   return this.http.post<any[]>(
 
-    `${this.apiUrl}/generate-task-suggestions`,
+    `${this.apiUrl}/generate-event-plan`,
 
     {
       prompt: prompt

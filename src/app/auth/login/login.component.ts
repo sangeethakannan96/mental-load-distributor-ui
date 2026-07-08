@@ -38,7 +38,7 @@ this.authService
           if (user.familyId) {
 
             this.router.navigate([
-              '/dashboard'
+              '/home'
             ]);
 
           } else {

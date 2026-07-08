@@ -1,45 +1,149 @@
-<mat-card>
+<h2>Plan with AI</h2>
 
-    <h2>
-        AI Assistant
-    </h2>
+<mat-tab-group animationDuration="300ms">
 
-    <p>
-        Describe what you need help with.
-    </p>
+  <!-- Daily -->
+  <mat-tab label="Daily">
 
-    <mat-form-field appearance="outline" class="full-width">
+    <div class="tab-content">
 
-        <mat-label>
-            Prompt
-        </mat-label>
+        <mat-card>
 
-        <textarea
+            <h2>☀ Daily Planning</h2>
+
+            <p>
+                Good Morning!
+            </p>
+
+            <p>
+                Tell me about your day.
+                The more context you provide,
+                the better AI can help plan
+                and distribute your family's workload.
+            </p>
+
+            <mat-form-field
+                appearance="outline"
+                class="full-width">
+
+                <mat-label>
+                    Describe your day...
+                </mat-label>
+
+                <textarea
+    matInput
+    rows="8"
+    [(ngModel)]="dailyPrompt"
+    placeholder="For example...
+
+• Dad is working late today.
+• I have an office presentation.
+• Kids have swimming lessons.
+• We need groceries.
+• Grandma is visiting tonight.
+
+Describe your day in your own words...">
+</textarea>
+
+            </mat-form-field>
+
+            
+
+            <button
+                mat-raised-button
+                color="primary"
+                (click)="generateDailyPlan()">
+
+                Generate Daily Plan
+
+            </button>
+
+        </mat-card>
+
+    </div>
+
+</mat-tab>
+
+  <!-- Events -->
+  <mat-tab label="Events">
+
+    <div class="tab-content">
+
+      <mat-card>
+
+        <h3>Event Planning</h3>
+
+        <p>
+          Describe an event and let AI create a plan.
+        </p>
+
+        <mat-form-field appearance="outline" class="full-width">
+
+          <mat-label>
+            Describe your event
+          </mat-label>
+
+          <textarea
             matInput
             rows="8"
             [(ngModel)]="prompt">
-        </textarea>
+          </textarea>
 
-    </mat-form-field>
+        </mat-form-field>
 
-    <p>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="generateEventPlan()">
 
-        Example:
+          Generate Event Plan
 
-        Tomorrow my parents are visiting.
-        Need to clean the house,
-        buy snacks,
-        prepare dinner.
+        </button>
 
-    </p>
+      </mat-card>
 
-    <button
-        mat-raised-button
-        color="primary"
-        (click)="generateSuggestions()">
+    </div>
 
-        Generate Suggestions
+  </mat-tab>
 
-    </button>
+  <!-- Weekly -->
+  <mat-tab label="Weekly">
 
-</mat-card>
+    <div class="tab-content">
+
+      <mat-card>
+
+        <h3>Weekly Planning</h3>
+
+        <p>
+          AI-assisted weekly planning is coming soon.
+
+        </p>
+
+      </mat-card>
+
+    </div>
+
+  </mat-tab>
+
+  <!-- Monthly -->
+  <mat-tab label="Monthly">
+
+    <div class="tab-content">
+
+      <mat-card>
+
+        <h3>Monthly Planning</h3>
+
+        <p>
+          AI-assisted monthly planning is coming soon.
+
+        </p>
+
+      </mat-card>
+
+    </div>
+
+  </mat-tab>
+
+</mat-tab-group>

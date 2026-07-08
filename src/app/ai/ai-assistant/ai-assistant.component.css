@@ -1,13 +1,38 @@
+.tab-content {
+    padding: 24px 0;
+}
+
 .full-width {
     width: 100%;
 }
 
 mat-card {
     max-width: 900px;
-    margin: 24px auto;
+    margin: auto;
     padding: 24px;
 }
 
 button {
     margin-top: 20px;
+}
+
+
+.example-card {
+
+    margin-top: 20px;
+
+    background: #fafafa;
+
+}
+
+.example-card ul {
+
+    margin-top: 10px;
+
+}
+
+.example-card li {
+
+    margin-bottom: 8px;
+
 }

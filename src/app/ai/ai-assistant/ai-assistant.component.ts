@@ -12,13 +12,26 @@ export class AiAssistantComponent {
 
   prompt = '';
 
+   dailyPrompt = '';
+
   constructor(
     private aiService: AiService,
     private notificationService: NotificationService,
     private router: Router
   ) { }
 
-  generateSuggestions() {
+
+ 
+
+generateDailyPlan() {
+
+    this.notificationService.success(
+        'Daily Planning coming soon.'
+    );
+
+}
+
+  generateEventPlan() {
 
     if (!this.prompt.trim()) {
 
@@ -30,7 +43,7 @@ export class AiAssistantComponent {
     }
 
     this.aiService
-      .generateTaskSuggestions(this.prompt)
+      .generateEventPlan(this.prompt)
       .subscribe({
 
         next: (suggestions) => {

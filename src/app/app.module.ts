@@ -68,6 +68,7 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { AiAssistantComponent } from './ai/ai-assistant/ai-assistant.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -115,7 +116,8 @@ import { AiAssistantComponent } from './ai/ai-assistant/ai-assistant.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatTabsModule
   ],
 
   providers: [
