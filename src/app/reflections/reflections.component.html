@@ -1,0 +1,141 @@
+<mat-card>
+
+    <h2>🌙 Daily Reflection</h2>
+
+    <p>
+        How was your day today?
+    </p>
+
+    <p>
+        Tell me about anything you did today,
+        whether it was planned or unplanned.
+        AI will recognize your invisible work,
+        understand your mental load and improve
+        future planning.
+    </p>
+
+    <mat-form-field
+        appearance="outline"
+        class="full-width">
+
+        <mat-label>
+
+            How did your day go?
+
+        </mat-label>
+
+        <textarea
+            matInput
+            rows="10"
+            [(ngModel)]="reflection"
+            placeholder="For example...
+
+Today I prepared tomorrow's lunch.
+
+Helped my daughter with homework.
+
+Called the pediatrician.
+
+Ordered groceries.
+
+Spent an hour planning meals.
+
+Reminded everyone about tomorrow's appointments.">
+
+        </textarea>
+
+    </mat-form-field>
+
+    <button
+    mat-raised-button
+    color="primary"
+    [disabled]="isLoading"
+    (click)="analyzeReflection()">
+
+    {{ isLoading
+        ? 'Reflecting...'
+        : 'Reflect on My Day' }}
+
+</button>
+
+</mat-card>
+
+<br>
+
+<mat-card
+    *ngIf="todayReflections.length > 0"
+    class="daily-reflection-card">
+
+    <h2>🌙 Today's Reflection</h2>
+
+    <div class="reflection-stats">
+
+        <span>
+            {{ todayReflections.length }}
+            reflections
+        </span>
+
+        <span>
+            {{ totalActivities }}
+            activities
+        </span>
+
+        <span>
+            {{ formattedTotalTime }}
+            captured
+        </span>
+
+        <span>
+            Mental load:
+            {{ totalMentalLoad }}
+        </span>
+
+    </div>
+
+    <h3>Activities Recognized</h3>
+
+    <div
+        *ngFor="let activity of allActivities"
+        class="activity-item">
+
+        <h4>
+            {{ activity.title }}
+        </h4>
+
+        <p *ngIf="activity.description">
+            {{ activity.description }}
+        </p>
+
+        <div class="activity-details">
+
+            <span>
+                {{ activity.category }}
+            </span>
+
+            <span>
+                {{ activity.estimatedMinutes }}
+                minutes
+            </span>
+
+            <span>
+                Mental load:
+                {{ activity.mentalLoadScore }}
+            </span>
+
+        </div>
+
+    </div>
+
+    <h3>Your Entries</h3>
+
+    <div
+        *ngFor="let reflection of todayReflections"
+        class="reflection-entry">
+
+        <p>
+            {{ reflection.content }}
+        </p>
+
+    </div>
+
+</mat-card>

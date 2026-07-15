@@ -35,6 +35,47 @@ generateEventPlan(prompt: string) {
 
 }
 
+
+generateDailyPlan(prompt: string) {
+
+  return this.http.post<any[]>(
+
+    `${this.apiUrl}/generate-daily-plan`,
+
+    {
+      prompt: prompt
+    }
+
+  );
+
+}
+
+
+generateWeeklyPlan(prompt: string) {
+
+  return this.http.post<any[]>(
+
+    `${this.apiUrl}/generate-weekly-plan`,
+
+    {
+      prompt: prompt
+    }
+
+  );
+
+}
+
+generateMonthlyPlan(prompt: string) {
+
+  return this.http.post<any[]>(
+    `${this.apiUrl}/generate-monthly-plan`,
+    {
+      prompt: prompt
+    }
+  );
+
+}
+
 approveSuggestions(suggestions: any[]) {
 
   return this.http.post(
@@ -44,6 +85,18 @@ approveSuggestions(suggestions: any[]) {
     }
   );
 }
+
+analyzeReflection(content: string) {
+
+  return this.http.post<any>(
+    `${this.apiUrl}/analyze-reflection`,
+    {
+      content: content
+    }
+  );
+
+}
+
 
   
 }

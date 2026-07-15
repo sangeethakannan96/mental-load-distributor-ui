@@ -65,7 +65,179 @@ Describe your day in your own words...">
 </mat-tab>
 
   <!-- Events -->
-  <mat-tab label="Events">
+  
+  <!-- Weekly -->
+  <mat-tab label="Weekly">
+
+    <div class="tab-content">
+
+        <mat-card>
+
+            <h2>📅 Weekly Planning</h2>
+
+            <p>
+
+                Plan your family's week with AI.
+
+            </p>
+
+            <p>
+
+                Tell me about important events,
+                appointments, travel, visitors,
+                work schedules or anything else
+                happening this week.
+
+            </p>
+
+            <mat-form-field
+                appearance="outline"
+                class="full-width">
+
+                <mat-label>
+
+                    What's happening this week?
+
+                </mat-label>
+
+                <textarea
+                    matInput
+                    rows="8"
+                    [(ngModel)]="weeklyPrompt"
+                    placeholder="For example...
+
+Dad is travelling on Thursday.
+
+My daughter has swimming lessons on Wednesday.
+
+We have guests coming on Saturday.
+
+Need to buy groceries before the weekend.
+
+I'd like to meal prep on Sunday.">
+
+                </textarea>
+
+            </mat-form-field>
+
+            <mat-card class="ai-help-card">
+
+                <h3>What AI will do</h3>
+
+                <ul>
+
+                    <li>Create family tasks</li>
+
+                    <li>Detect recurring work</li>
+
+                    <li>Suggest task delegation</li>
+
+                    <li>Balance workload across family members</li>
+
+                </ul>
+
+            </mat-card>
+
+            <button
+                mat-raised-button
+                color="primary"
+                (click)="generateWeeklyPlan()">
+
+                Generate Weekly Plan
+
+            </button>
+
+        </mat-card>
+
+    </div>
+
+</mat-tab>
+  <!-- Monthly -->
+  <mat-tab label="Monthly">
+
+    <div class="tab-content">
+
+        <mat-card>
+
+            <h2>🗓 Monthly Planning</h2>
+
+            <p>
+                Plan your family's month with AI.
+            </p>
+
+            <p>
+                Tell me about important events,
+                school activities, birthdays,
+                vacations, bills, maintenance,
+                or anything else happening this month.
+            </p>
+
+            <mat-form-field
+                appearance="outline"
+                class="full-width">
+
+                <mat-label>
+
+                    What's happening this month?
+
+                </mat-label>
+
+                <textarea
+                    matInput
+                    rows="8"
+                    [(ngModel)]="monthlyPrompt"
+                    placeholder="For example...
+
+School reopens next week.
+
+Need to renew car insurance.
+
+My parents are visiting this month.
+
+We have two birthdays to celebrate.
+
+Need to plan Diwali shopping.
+
+The annual health check-up is due.">
+
+                </textarea>
+
+            </mat-form-field>
+
+            <mat-card class="ai-help-card">
+
+                <h3>What AI will do</h3>
+
+                <ul>
+
+                    <li>Create family tasks</li>
+
+                    <li>Identify long-term planning activities</li>
+
+                    <li>Suggest task delegation</li>
+
+                    <li>Balance workload across family members</li>
+
+                </ul>
+
+            </mat-card>
+
+            <button
+                mat-raised-button
+                color="primary"
+                (click)="generateMonthlyPlan()">
+
+                Generate Monthly Plan
+
+            </button>
+
+        </mat-card>
+
+    </div>
+
+</mat-tab>
+
+<mat-tab label="Events">
 
     <div class="tab-content">
 
@@ -106,44 +278,5 @@ Describe your day in your own words...">
 
   </mat-tab>
 
-  <!-- Weekly -->
-  <mat-tab label="Weekly">
-
-    <div class="tab-content">
-
-      <mat-card>
-
-        <h3>Weekly Planning</h3>
-
-        <p>
-          AI-assisted weekly planning is coming soon.
-
-        </p>
-
-      </mat-card>
-
-    </div>
-
-  </mat-tab>
-
-  <!-- Monthly -->
-  <mat-tab label="Monthly">
-
-    <div class="tab-content">
-
-      <mat-card>
-
-        <h3>Monthly Planning</h3>
-
-        <p>
-          AI-assisted monthly planning is coming soon.
-
-        </p>
-
-      </mat-card>
-
-    </div>
-
-  </mat-tab>
 
 </mat-tab-group>

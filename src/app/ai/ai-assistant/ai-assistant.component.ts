@@ -14,6 +14,10 @@ export class AiAssistantComponent {
 
    dailyPrompt = '';
 
+   weeklyPrompt = '';
+
+   monthlyPrompt = '';
+
   constructor(
     private aiService: AiService,
     private notificationService: NotificationService,
@@ -25,9 +29,125 @@ export class AiAssistantComponent {
 
 generateDailyPlan() {
 
-    this.notificationService.success(
-        'Daily Planning coming soon.'
+  if (!this.dailyPrompt.trim()) {
+
+    this.notificationService.error(
+      'Please tell us what is happening today.'
     );
+
+    return;
+  }
+
+  this.aiService
+    .generateDailyPlan(this.dailyPrompt)
+    .subscribe({
+
+      next: (suggestions) => {
+
+        sessionStorage.setItem(
+          'suggestions',
+          JSON.stringify(suggestions)
+        );
+
+        this.router.navigate([
+          '/review-suggestions'
+        ]);
+
+      },
+
+      error: () => {
+
+        this.notificationService.error(
+          'Failed to generate daily plan.'
+        );
+
+      }
+
+    });
+
+}
+
+
+
+generateWeeklyPlan() {
+
+  if (!this.weeklyPrompt.trim()) {
+
+    this.notificationService.error(
+      'Please tell us what is happening this week.'
+    );
+
+    return;
+  }
+
+  this.aiService
+    .generateWeeklyPlan(this.weeklyPrompt)
+    .subscribe({
+
+      next: (suggestions) => {
+
+        sessionStorage.setItem(
+          'suggestions',
+          JSON.stringify(suggestions)
+        );
+
+        this.router.navigate([
+          '/review-suggestions'
+        ]);
+
+      },
+
+      error: () => {
+
+        this.notificationService.error(
+          'Failed to generate weekly plan.'
+        );
+
+      }
+
+    });
+
+}
+
+
+
+generateMonthlyPlan() {
+
+  if (!this.monthlyPrompt.trim()) {
+
+    this.notificationService.error(
+      'Please tell us what is happening this month.'
+    );
+
+    return;
+  }
+
+  this.aiService
+    .generateMonthlyPlan(this.monthlyPrompt)
+    .subscribe({
+
+      next: (suggestions) => {
+
+        sessionStorage.setItem(
+          'suggestions',
+          JSON.stringify(suggestions)
+        );
+
+        this.router.navigate([
+          '/review-suggestions'
+        ]);
+
+      },
+
+      error: () => {
+
+        this.notificationService.error(
+          'Failed to generate monthly plan.'
+        );
+
+      }
+
+    });
 
 }
 

@@ -69,6 +69,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { AiAssistantComponent } from './ai/ai-assistant/ai-assistant.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { ReflectionComponent } from './reflections/reflections.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     ReviewSuggestionsComponent,
     HomeComponent,
     SidebarComponent,
-    AiAssistantComponent
+    AiAssistantComponent,
+    ReflectionComponent
   ],
   imports: [
     BrowserModule,

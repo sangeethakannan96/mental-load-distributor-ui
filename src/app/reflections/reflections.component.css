@@ -1,0 +1,83 @@
+mat-card {
+
+    max-width: 900px;
+
+    margin: 24px auto;
+
+    padding: 24px;
+
+}
+
+.full-width {
+
+    width: 100%;
+
+}
+
+button {
+
+    margin-top: 20px;
+
+}
+
+.info-card {
+
+    background: #fafafa;
+
+}
+
+.info-card ul {
+
+    margin-top: 12px;
+
+}
+
+.info-card li {
+
+    margin-bottom: 10px;
+
+}
+
+.daily-reflection-card {
+    max-width: 900px;
+    margin: 24px auto;
+    padding: 24px;
+}
+
+.reflection-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 20px 0 28px;
+}
+
+.reflection-stats span {
+    padding: 8px 14px;
+    background: #f5f5f5;
+    border-radius: 16px;
+    font-size: 14px;
+}
+
+.activity-item {
+    padding: 16px 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.activity-item h4 {
+    margin: 0 0 8px;
+}
+
+.activity-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 14px;
+    color: #666666;
+}
+
+.reflection-entry {
+    padding: 16px;
+    margin-bottom: 12px;
+    background: #fafafa;
+    border-radius: 8px;
+}
