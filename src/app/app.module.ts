@@ -70,6 +70,7 @@ import { MatListModule } from '@angular/material/list';
 import { AiAssistantComponent } from './ai/ai-assistant/ai-assistant.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ReflectionComponent } from './reflections/reflections.component';
+import { InsightsComponent } from './insights/insights/insights.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { ReflectionComponent } from './reflections/reflections.component';
     HomeComponent,
     SidebarComponent,
     AiAssistantComponent,
-    ReflectionComponent
+    ReflectionComponent,
+    InsightsComponent
   ],
   imports: [
     BrowserModule,

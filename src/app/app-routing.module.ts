@@ -18,6 +18,7 @@ import { ReviewSuggestionsComponent } from './ai/review-suggestions/review-sugge
 import { AiAssistantComponent } from './ai/ai-assistant/ai-assistant.component';
 import { HomeComponent } from './home/home.component';
 import { ReflectionComponent } from './reflections/reflections.component';
+import { InsightsComponent } from './insights/insights/insights.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -36,7 +37,9 @@ const routes: Routes = [
   {path: 'household-profile',component: HouseholdProfileComponent, canActivate: [AuthGuard]},
   {path: 'review-suggestions',component: ReviewSuggestionsComponent, canActivate: [AuthGuard]},
   {path: 'ai-assistant',component: AiAssistantComponent, canActivate: [AuthGuard]},
-  {path: 'reflections',component: ReflectionComponent, canActivate: [AuthGuard]}
+  {path: 'reflections',component: ReflectionComponent, canActivate: [AuthGuard]},
+  {path: 'insights',component: InsightsComponent, canActivate: [AuthGuard]}
+
 
 
 ];

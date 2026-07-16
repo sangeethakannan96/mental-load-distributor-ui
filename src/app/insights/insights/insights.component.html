@@ -1,0 +1,370 @@
+<div class="insights-container">
+
+    <div class="header">
+
+        <h1>Insights</h1>
+
+        <mat-form-field appearance="outline">
+            <mat-label>View</mat-label>
+
+            <mat-select
+                [(value)]="selectedPeriod"
+                (selectionChange)="onPeriodChanged()">
+
+                <mat-option value="yesterday">
+                    Yesterday
+                </mat-option>
+
+                <mat-option value="week">
+                    This Week
+                </mat-option>
+
+                <mat-option value="month">
+                    This Month
+                </mat-option>
+
+                <mat-option value="quarter">
+                    Last Quarter
+                </mat-option>
+
+                <mat-option value="year">
+                    This Year
+                </mat-option>
+
+            </mat-select>
+
+        </mat-form-field>
+
+    </div>
+
+    <mat-tab-group animationDuration="300ms">
+
+        <!-- Overview -->
+
+        <mat-tab>
+
+            <ng-template mat-tab-label>
+
+                <mat-icon>dashboard</mat-icon>
+
+                <span class="tab-text">Overview</span>
+
+            </ng-template>
+
+            <div class="tab-content">
+
+                <div class="cards">
+
+                    <mat-card>
+
+                        <mat-card-title>
+                            Family Balance
+                        </mat-card-title>
+
+                        <mat-card-content>
+
+                            {{dashboard?.loadImbalanceScore}}
+
+                        </mat-card-content>
+
+                    </mat-card>
+
+                    <mat-card>
+
+                        <mat-card-title>
+                            Most Loaded
+                        </mat-card-title>
+
+                        <mat-card-content>
+
+                            {{dashboard?.mostLoadedUser}}
+
+                        </mat-card-content>
+
+                    </mat-card>
+
+                    <mat-card>
+
+                        <mat-card-title>
+                            Average Load
+                        </mat-card-title>
+
+                        <mat-card-content>
+
+                            {{dashboard?.averageLoad}}
+
+                        </mat-card-content>
+
+                    </mat-card>
+
+                </div>
+
+                <mat-card class="recommendation">
+
+                    <mat-card-title>
+
+                        AI Insight
+
+                    </mat-card-title>
+
+                    <mat-card-content>
+
+                        {{dashboard?.recommendation}}
+
+                    </mat-card-content>
+
+                </mat-card>
+
+            </div>
+
+        </mat-tab>
+
+        <!-- Tasks -->
+
+<mat-tab>
+
+    <ng-template mat-tab-label>
+
+        <mat-icon>task_alt</mat-icon>
+
+        <span class="tab-text">Tasks</span>
+
+    </ng-template>
+
+    <div class="tab-content">
+
+        <div class="cards">
+
+            <mat-card>
+
+                <mat-card-title>Total Tasks</mat-card-title>
+
+                <mat-card-content>
+
+                    <h2>{{dashboard?.totalTasks}}</h2>
+
+                </mat-card-content>
+
+            </mat-card>
+
+            <mat-card>
+
+                <mat-card-title>Completed</mat-card-title>
+
+                <mat-card-content>
+
+                    <h2>{{dashboard?.completedTasks}}</h2>
+
+                </mat-card-content>
+
+            </mat-card>
+
+            <mat-card>
+
+                <mat-card-title>Pending</mat-card-title>
+
+                <mat-card-content>
+
+                    <h2>{{dashboard?.pendingTasks}}</h2>
+
+                </mat-card-content>
+
+            </mat-card>
+
+        </div>
+
+        <div class="cards">
+
+            <mat-card>
+
+                <mat-card-title>Due Today</mat-card-title>
+
+                <mat-card-content>
+
+                    <h2>{{dashboard?.tasksDueToday}}</h2>
+
+                </mat-card-content>
+
+            </mat-card>
+
+            <mat-card>
+
+                <mat-card-title>Urgent</mat-card-title>
+
+                <mat-card-content>
+
+                    <h2>{{dashboard?.urgentTasks}}</h2>
+
+                </mat-card-content>
+
+            </mat-card>
+
+            <mat-card>
+
+                <mat-card-title>Overdue</mat-card-title>
+
+                <mat-card-content>
+
+                    <h2>{{dashboard?.overdueTasks}}</h2>
+
+                </mat-card-content>
+
+            </mat-card>
+
+        </div>
+
+        <mat-card class="member-summary">
+
+            <mat-card-title>
+
+                My Active Tasks
+
+            </mat-card-title>
+
+            <mat-list>
+
+                <mat-list-item
+                    *ngFor="let task of dashboard?.myActiveTasks">
+
+                    <mat-icon matListIcon>
+
+                        task
+
+                    </mat-icon>
+
+                    <div matLine>
+
+                        {{task.title}}
+
+                    </div>
+
+                    <div matLine>
+
+                        {{task.priority}}
+
+                    </div>
+
+                </mat-list-item>
+
+            </mat-list>
+
+        </mat-card>
+
+    </div>
+
+</mat-tab>
+
+        <!-- Family -->
+
+        <mat-tab>
+
+            <ng-template mat-tab-label>
+
+                <mat-icon>groups</mat-icon>
+
+                <span class="tab-text">Family</span>
+
+            </ng-template>
+
+            <div class="tab-content">
+
+                <mat-card>
+
+                    <mat-card-title>
+
+                        Workload Distribution
+
+                    </mat-card-title>
+
+                    <mat-list>
+
+                        <mat-list-item
+                            *ngFor="let user of dashboard?.loadPerUser">
+
+                            {{user.userName}}
+
+                            <span class="spacer"></span>
+
+                            {{user.load}}
+
+                        </mat-list-item>
+
+                    </mat-list>
+
+                </mat-card>
+
+            </div>
+
+        </mat-tab>
+
+        <!-- Reflections -->
+
+        <mat-tab>
+
+            <ng-template mat-tab-label>
+
+                <mat-icon>edit_note</mat-icon>
+
+                <span class="tab-text">Reflections</span>
+
+            </ng-template>
+
+            <div class="tab-content">
+
+                <mat-card>
+
+                    <mat-card-title>
+
+                        Reflection Insights
+
+                    </mat-card-title>
+
+                    <mat-card-content>
+
+                        Coming Soon...
+
+                    </mat-card-content>
+
+                </mat-card>
+
+            </div>
+
+        </mat-tab>
+
+        <!-- Trends -->
+
+        <mat-tab>
+
+            <ng-template mat-tab-label>
+
+                <mat-icon>trending_up</mat-icon>
+
+                <span class="tab-text">Trends</span>
+
+            </ng-template>
+
+            <div class="tab-content">
+
+                <mat-card>
+
+                    <mat-card-title>
+
+                        Trends
+
+                    </mat-card-title>
+
+                    <mat-card-content>
+
+                        Coming Soon...
+
+                    </mat-card-content>
+
+                </mat-card>
+
+            </div>
+
+        </mat-tab>
+
+    </mat-tab-group>
+
+</div>
