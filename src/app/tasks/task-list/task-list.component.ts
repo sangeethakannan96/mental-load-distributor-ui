@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../services/task.service';
 import { FamilyService } from 'src/app/services/family.service';
 import { NotificationService } from 'src/app/services/notification.service';
+import { TaskStatus } from 'src/app/models/task-status';
+
 
 @Component({
   selector: 'app-task-list',
@@ -39,7 +41,8 @@ export class TaskListComponent implements OnInit {
   get filteredTasks() {
 
   let filtered = this.tasks.filter(
-    t => !t.isCompleted
+    t => t.status !== TaskStatus.Completed &&
+     t.status !== TaskStatus.Cancelled
   );
 
   if (this.searchText) {
@@ -66,7 +69,8 @@ export class TaskListComponent implements OnInit {
 
       filtered = filtered.filter(
         t =>
-          !t.isCompleted &&
+          t.status !== TaskStatus.Completed &&
+          t.status !== TaskStatus.Cancelled &&
           t.dueDate &&
           new Date(t.dueDate) < new Date()
       );
@@ -110,7 +114,8 @@ export class TaskListComponent implements OnInit {
 
       filtered = filtered.filter(
         t => t.assignedTo &&
-        !t.isCompleted
+        t.status !== TaskStatus.Completed &&
+        t.status !== TaskStatus.Cancelled
       );
 
       break;
@@ -199,7 +204,7 @@ export class TaskListComponent implements OnInit {
 
  return this.sortTasks(
   this.tasks.filter(
-    t => !t.assignedTo && !t.isCompleted
+    t => !t.assignedTo && t.status !== TaskStatus.Completed && t.status !== TaskStatus.Cancelled
   )
 );
 }
@@ -208,7 +213,7 @@ get assignedTasks() {
 
   return this.sortTasks(
   this.tasks.filter(
-    t => t.assignedTo && !t.isCompleted
+    t => t.assignedTo && t.status !== TaskStatus.Completed && t.status !== TaskStatus.Cancelled
   )
 );
 }
@@ -216,7 +221,7 @@ get assignedTasks() {
 get completedTasks() {
 
   return this.tasks.filter(
-    t => t.isCompleted
+    t => t.status === TaskStatus.Completed
   );
 }
 
@@ -248,7 +253,7 @@ sortTasks(tasks: any[]) {
 get historyTasks() {
 
   return this.tasks.filter(
-    t => t.isCompleted
+    t => t.status === TaskStatus.Completed
   );
 }
 

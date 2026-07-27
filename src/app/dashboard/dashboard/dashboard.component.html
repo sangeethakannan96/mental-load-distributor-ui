@@ -1,240 +1,113 @@
-
-
-<h1 class="dashboard-title">
-
-  Family Dashboard
-
-</h1>
-
-<mat-grid-list
-  [cols]="dashboardCols"
-  rowHeight="160px"
-  gutterSize="16px"
->
-
-  <mat-grid-tile>
-
-    <mat-card class="dashboard-card">
-
-      <h2>Total Tasks</h2>
-
-      <h1>
-
-        {{ dashboard?.totalTasks }}
-
-      </h1>
-
-    </mat-card>
-
-  </mat-grid-tile>
-
-  <mat-grid-tile>
-
-    <mat-card class="dashboard-card">
-
-      <h2>Completed Tasks</h2>
-
-      <h1>
-
-        {{ dashboard?.completedTasks }}
-
-      </h1>
-
-    </mat-card>
-
-  </mat-grid-tile>
-
-  <mat-grid-tile>
-
-    <mat-card class="dashboard-card">
-
-      <h2>Pending Tasks</h2>
-
-      <h1>
-
-        {{ dashboard?.pendingTasks }}
-
-      </h1>
-
-    </mat-card>
-
-  </mat-grid-tile>
-
-  <mat-grid-tile>
-
-    <mat-card class="dashboard-card">
-
-      <h2>Unassigned Tasks</h2>
-
-      <h1>
-
-        {{ dashboard?.unassignedTasks }}
-
-      </h1>
-
-    </mat-card>
-
-  </mat-grid-tile>
-
-</mat-grid-list>
-
-<br>
-
-<br>
-
-  <mat-grid-list
-    [cols]="dashboardStatsCols"
-    rowHeight="140px"
-    gutterSize="16px"
-  >
-
-  <mat-grid-tile>
-
-    <mat-card class="dashboard-card overdue-card">
-
-      <h2>
-
-        ⚠ Overdue
-
-      </h2>
-
-      <h1>
-
-        {{ dashboard?.overdueTasks }}
-
-      </h1>
-
-    </mat-card>
-
-  </mat-grid-tile>
-
-  <mat-grid-tile>
-
-    <mat-card class="dashboard-card today-card">
-
-      <h2>
-
-        📅 Due Today
-
-      </h2>
-
-      <h1>
-
-        {{ dashboard?.tasksDueToday }}
-
-      </h1>
-
-    </mat-card>
-
-  </mat-grid-tile>
-
-  <mat-grid-tile>
-
-    <mat-card class="dashboard-card urgent-card">
-
-      <h2>
-
-        🔥 Urgent
-
-      </h2>
-
-      <h1>
-
-        {{ dashboard?.urgentTasks }}
-
-      </h1>
-
-    </mat-card>
-
-  </mat-grid-tile>
-
-</mat-grid-list>
-
-<mat-card class="dashboard-card">
-
-  <h2>Load Per User</h2>
-
-  <div *ngFor="let user of dashboard?.loadPerUser">
-
-    <p>
-
-      👤 {{ user.userName }}
-      :
-      {{ user.totalMinutes }} mins
-
-    </p>
-
+<div class="dashboard-container">
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Today's Summary</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="summary-grid">
+
+  <div class="summary-item">
+    <span class="label">Total Tasks</span>
+    <span class="value">{{dashboard?.summary?.totalTasks}}</span>
   </div>
 
+  <div class="summary-item">
+    <span class="label">Pending</span>
+    <span class="value">{{dashboard?.summary?.pendingTasks}}</span>
+  </div>
+
+  <div class="summary-item">
+    <span class="label">Completed</span>
+    <span class="value">{{dashboard?.summary?.completedTasks}}</span>
+  </div>
+
+  <div class="summary-item">
+    <span class="label">Unassigned</span>
+    <span class="value">{{dashboard?.summary?.unassignedTasks}}</span>
+  </div>
+
+</div>
+    </mat-card-content>
+  </mat-card>
+
+
+  <mat-card>
+  <mat-card-header>
+    <mat-card-title>Family Progress</mat-card-title>
+  </mat-card-header>
+ <mat-card-content>
+
+    <div
+      class="member-progress"
+      *ngFor="let member of dashboard?.familyProgress">
+
+      <div class="member-header">
+        <span class="member-name">{{ member.userName }}</span>
+
+        <span>
+          {{ member.completedTasks }} /
+          {{ member.completedTasks + member.pendingTasks }}
+        </span>
+      </div>
+
+      <mat-progress-bar
+        mode="determinate"
+        [value]="getCompletionPercentage(member)">
+      </mat-progress-bar>
+
+      <div class="member-footer">
+        <span>Completed: {{ member.completedTasks }}</span>
+        <span>Pending: {{ member.pendingTasks }}</span>
+      </div>
+
+    </div>
+
+  </mat-card-content>
+  </mat-card>
+
+ <mat-card>
+  <mat-card-header>
+    <mat-card-title>Recent Completed Tasks</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <mat-list>
+
+      <mat-list-item *ngFor="let task of dashboard?.recentCompletedTasks">
+
+        <mat-icon matListItemIcon color="primary">
+          check_circle
+        </mat-icon>
+
+        <div matListItemTitle>
+          {{ task.title }}
+        </div>
+
+        <div matListItemLine>
+          Completed by <strong>{{ task.completedBy }}</strong>
+        </div>
+
+        <div matListItemLine>
+          {{ task.completedAt | date:'MMM d, h:mm a' }}
+        </div>
+
+      </mat-list-item>
+
+    </mat-list>
+
+    <div *ngIf="dashboard?.recentCompletedTasks?.length === 0"
+         class="empty-state">
+
+      <mat-icon>task_alt</mat-icon>
+
+      <p>No tasks have been completed today.</p>
+
+    </div>
+
+  </mat-card-content>
 </mat-card>
 
-<br>
-
-<mat-card class="dashboard-card">
-
-  <h2>Workload Insights</h2>
-
-  <p>
-
-    👤 Most Loaded:
-    {{ dashboard?.mostLoadedUser }}
-
-  </p>
-
-  <p>
-
-    👤 Least Loaded:
-    {{ dashboard?.leastLoadedUser }}
-
-  </p>
-
-  <p>
-
-    ⚖ Average Load:
-    {{ dashboard?.averageLoad }}
-
-  </p>
-
-  <p>
-
-    📊 Imbalance Score:
-    {{ dashboard?.loadImbalanceScore }}
-
-  </p>
-
-</mat-card>
-
-<br>
-
-<mat-card class="dashboard-card">
-
-  <h2>Recommendation</h2>
-
-  <p class="recommendation">
-
-    {{ dashboard?.recommendation }}
-
-  </p>
-
-</mat-card>
-
-<br>
-
-<mat-card class="dashboard-card">
-
-  <h2>
-
-    Family Workload Chart
-
-  </h2>
-
-  <canvas
-    baseChart
-    [data]="barChartData"
-    [options]="barChartOptions"
-    [type]="barChartType"
-  >
-
-  </canvas>
-
-</mat-card>
+</div>

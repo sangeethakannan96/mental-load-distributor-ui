@@ -4,6 +4,7 @@ import { DashboardService } from '../../services/dashboard.service';
 import { AuthService } from '../../services/auth.service';
 import { TaskService } from '../../services/task.service';
 import { ChartConfiguration,ChartType} from 'chart.js';
+import { DashboardDto, MemberTodayDto } from 'src/app/models/dashboard.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,23 +13,8 @@ import { ChartConfiguration,ChartType} from 'chart.js';
 })
 export class DashboardComponent implements OnInit {
 
-  public barChartType: 'bar' = 'bar';
+  dashboard?: DashboardDto;
 
-barChartData: ChartConfiguration<'bar'>['data'] = {
-  labels: [],
-  datasets: [
-    {
-      data: [],
-      label: 'Workload (mins)'
-    }
-  ]
-};
-
-barChartOptions:
-ChartConfiguration<'bar'>['options'] = {
-  responsive: true
-};
-  dashboard: any;
 
   constructor(
     private dashboardService: DashboardService,
@@ -37,73 +23,27 @@ ChartConfiguration<'bar'>['options'] = {
     private router: Router
   ) {}
 
-  ngOnInit(): void {  
-    this.reloadDashboard();
+  ngOnInit(): void {
+  this.loadDashboard();
+}
+
+loadDashboard(): void {
+  this.dashboardService
+      .getDashboard()
+      .subscribe(result => this.dashboard = result);
+}
+
+getCompletionPercentage(member: MemberTodayDto): number {
+
+  const total = member.completedTasks + member.pendingTasks;
+
+  if (total === 0) {
+    return 0;
   }
 
-
-reloadDashboard() {
-
-  this.dashboardService
-  .getDashboard()
-  .subscribe((response: any) => {
-
-    console.log(response);
-
-    this.dashboard = response;
-
-    this.barChartData = {
-
-      labels:
-        response.loadPerUser.map(
-          (u: any) => u.userName
-        ),
-
-      datasets: [
-        {
-          data:
-            response.loadPerUser.map(
-              (u: any) => u.totalMinutes
-            ),
-
-          label:
-            'Workload (mins)'
-        }
-      ]
-    };
-});
+  return (member.completedTasks / total) * 100;
 }
 
 
-get dashboardCols(): number {
-
-  return window.innerWidth < 768
-    ? 1
-    : 2;
-}
-
-get dashboardStatsCols(): number {
-
-  return window.innerWidth < 768
-    ? 1
-    : 3;
-}
-
-completeTask(taskId: string) {
-
-  this.taskService
-    .completeTask(taskId)
-    .subscribe(() => {
-
-      this.reloadDashboard();
-    });
-}
-
-logout() {
-
-  this.authService.logout();
-
-  this.router.navigate(['/login']);
-}
 
 }

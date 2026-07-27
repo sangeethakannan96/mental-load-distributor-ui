@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardService } from '../../services/dashboard.service';
+import { InsightsService } from 'src/app/services/insights.service';
+import { FamilyService } from 'src/app/services/family.service';
+import { InsightsDto } from 'src/app/models/insights.model';
 
 @Component({
   selector: 'app-insights',
@@ -10,10 +12,13 @@ export class InsightsComponent implements OnInit {
 
   selectedPeriod = 'yesterday';
 
-  dashboard: any;
+  insights?: InsightsDto;
+
+  loading = false;
 
   constructor(
-    private dashboardService: DashboardService
+    private insightsService: InsightsService,
+    private familyService: FamilyService
   ) { }
 
   ngOnInit(): void {
@@ -22,21 +27,33 @@ export class InsightsComponent implements OnInit {
 
   }
 
-  loadInsights() {
+  loadInsights(): void {
 
-    // For now reuse Dashboard API
+  this.loading = true;
 
-    this.dashboardService
-      .getDashboard()
-      .subscribe(result => {
+  this.insightsService
+      .getInsights(this.selectedPeriod)
+      .subscribe({
 
-        this.dashboard = result;
+        next: result => {
+
+          this.insights = result;
+          this.loading = false;
+
+        },
+
+        error: err => {
+
+          console.error(err);
+          this.loading = false;
+
+        }
 
       });
 
-  }
+}
 
-  onPeriodChanged() {
+  onPeriodChanged(): void {
 
     this.loadInsights();
 

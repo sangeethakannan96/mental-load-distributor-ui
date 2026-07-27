@@ -18,7 +18,10 @@ import { FamilyMembersComponent } from './family/family-members/family-members.c
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTableModule } from '@angular/material/table';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule }
 from '@angular/material/button';
 
@@ -71,6 +74,8 @@ import { AiAssistantComponent } from './ai/ai-assistant/ai-assistant.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ReflectionComponent } from './reflections/reflections.component';
 import { InsightsComponent } from './insights/insights/insights.component';
+import { InsightsService } from './services/insights.service';
+
 
 @NgModule({
   declarations: [
@@ -121,7 +126,11 @@ import { InsightsComponent } from './insights/insights/insights.component';
     MatNativeDateModule,
     MatSidenavModule,
     MatListModule,
-    MatTabsModule
+    MatTabsModule,
+    MatExpansionModule,
+    MatDividerModule,
+    MatTableModule,
+    MatProgressBarModule
   ],
 
   providers: [
