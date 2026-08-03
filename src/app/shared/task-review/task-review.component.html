@@ -1,0 +1,152 @@
+<mat-card>
+
+  <mat-card-title>
+
+    {{ title }}
+
+  </mat-card-title>
+
+  <mat-card-content>
+
+    <!-- Bulk Action Toolbar -->
+
+    <mat-toolbar
+      color="primary"
+      *ngIf="selectedTaskIds.size > 0">
+
+      {{ selectedTaskIds.size }} selected
+
+      <span class="spacer"></span>
+
+      <button
+        mat-icon-button
+        matTooltip="Complete Selected">
+
+        <mat-icon>
+
+          check_circle
+
+        </mat-icon>
+
+      </button>
+
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="bulkMenu">
+
+        <mat-icon>
+
+          more_vert
+
+        </mat-icon>
+
+      </button>
+
+    </mat-toolbar>
+
+    <!-- Bulk Menu -->
+
+    <mat-menu #bulkMenu="matMenu">
+
+      <button mat-menu-item>
+
+        <mat-icon>person</mat-icon>
+
+        <span>Reassign</span>
+
+      </button>
+
+      <button mat-menu-item>
+
+        <mat-icon>schedule</mat-icon>
+
+        <span>Postpone</span>
+
+      </button>
+
+      <button mat-menu-item>
+
+        <mat-icon>cancel</mat-icon>
+
+        <span>Cancel</span>
+
+      </button>
+
+      <button mat-menu-item>
+
+        <mat-icon>delete</mat-icon>
+
+        <span>Delete</span>
+
+      </button>
+
+    </mat-menu>
+
+    <!-- Select All -->
+
+    <div *ngIf="tasks.length > 0">
+
+      <mat-checkbox
+        [(ngModel)]="allSelected"
+        (change)="toggleSelectAll()">
+
+        Select All
+
+      </mat-checkbox>
+
+    </div>
+
+    <!-- Empty -->
+
+    <div *ngIf="tasks.length === 0">
+
+      🎉 Nothing to review.
+
+    </div>
+
+    <!-- Review Tasks -->
+
+    <div
+      *ngFor="let task of tasks"
+      class="review-row">
+
+      <mat-checkbox
+        [checked]="isSelected(task.id)"
+        (change)="toggleSelection(task.id)">
+      </mat-checkbox>
+
+      <div class="task-info">
+
+        <a
+          [routerLink]="['/tasks', task.id]">
+
+          {{ task.title }}
+
+        </a>
+
+        <div
+          *ngIf="mode === ReviewMode.Dashboard">
+
+          👤 {{ task.assignedTo?.name }}
+
+        </div>
+
+      </div>
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="
+          $event.stopPropagation();
+          taskcompleted.emit(task.id)
+        ">
+
+        Complete
+
+      </button>
+
+    </div>
+
+  </mat-card-content>
+
+</mat-card>

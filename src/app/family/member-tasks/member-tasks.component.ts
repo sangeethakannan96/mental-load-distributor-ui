@@ -7,6 +7,10 @@ from '@angular/router';
 import { TaskService }
 from 'src/app/services/task.service';
 
+import { TaskStatus } from 'src/app/models/task-status';
+import { FamilyService }
+from 'src/app/services/family.service';
+
 @Component({
   selector: 'app-member-tasks',
   templateUrl:
@@ -31,9 +35,12 @@ implements OnInit {
 
   totalMinutesAssigned = 0;
 
+  familyUsers: any[] = [];
+
   constructor(
     private route: ActivatedRoute,
-    private taskService: TaskService
+    private taskService: TaskService,
+    private familyService: FamilyService
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +50,14 @@ implements OnInit {
         'userId'
       ) || '';
 
+        this.familyService
+  .getMyFamilyUsers()
+  .subscribe((response: any) => {
+
+    this.familyUsers = response;
+   
+  });
+  
     this.loadTasks();
   }
 
@@ -74,12 +89,13 @@ implements OnInit {
 
         this.assignedTasks =
           userTasks.filter(
-            t => !t.isCompleted
+            t => t.status !== TaskStatus.Completed &&
+            t.status !== TaskStatus.Cancelled
           );
 
         this.completedTasks =
           userTasks.filter(
-            t => t.isCompleted
+            t => t.status === TaskStatus.Completed
           );
 
           this.activeTaskCount =

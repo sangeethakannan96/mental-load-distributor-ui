@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NotificationService } from 'src/app/services/notification.service';
 import { TaskService } from 'src/app/services/task.service';
+import { TaskStatus } from 'src/app/models/task-status';
+
 import {
   MatDialog
 }
@@ -17,6 +19,8 @@ from '../confirm-dialog/confirm-dialog.component';
   styleUrls: ['./task-card.component.css']
 })
 export class TaskCardComponent {
+
+   TaskStatus = TaskStatus;
 
   @Input() task: any;
 
@@ -122,7 +126,7 @@ assignSuggestedUser() {
   if (!this.task.dueDate)
     return false;
 
-  if (this.task.isCompleted)
+  if (this.task.status === TaskStatus.Completed)
     return false;
 
   return new Date(this.task.dueDate)
@@ -132,34 +136,24 @@ assignSuggestedUser() {
 startEdit() {
 
   this.editTask = {
+  title: this.task.title,
+  description: this.task.description,
+  estimatedMinutes: this.task.estimatedMinutes,
 
-    title: this.task.title,
+  dueDate: this.task.dueDate
+    ? this.task.dueDate.substring(0, 10)
+    : null,
 
-    description:
-      this.task.description,
+  priority: this.task.priority,
+  recurrence: this.task.recurrence,
+  assignedToId: this.task.assignedTo?.id,
 
-    estimatedMinutes:
-      this.task.estimatedMinutes,
+  status: this.task.status,
+  category: this.task.category,
+  mentalLoadEstimate: this.task.mentalLoadEstimate,
 
-    dueDate:
-      this.task.dueDate
-        ? this.task.dueDate.substring(0,10)
-        : '',
-
-    priority:
-      this.task.priority,
-
-    recurrence:
-      this.task.recurrence,
-
-    assignedToId:
-    this.task.assignedTo?.id,
-
-    isCompleted:
-      this.task.isCompleted,
-
-      tags: this.task.tags.join(', ')
-  };
+  tags: this.task.tags.join(', ')
+};
 
   this.isEditing = true;
 }
@@ -206,6 +200,8 @@ saveTask() {
 
     ...this.editTask,
 
+    dueDate: this.editTask.dueDate || null,
+    
     tags: this.editTask.tags
       .split(',')
       .map((t: string) => t.trim())
@@ -226,6 +222,8 @@ saveTask() {
           );
 
         this.isEditing = false;
+
+        this.updated.emit(); 
       },
 
       error: () => {

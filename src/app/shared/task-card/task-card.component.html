@@ -94,13 +94,13 @@
 
     </p>
 
-    <p *ngIf="task.isCompleted">
+    <p *ngIf="task.status === TaskStatus.Completed">
 
       ✅ Completed
 
     </p>
 
-    <p *ngIf="!task.isCompleted">
+    <p *ngIf="task.status !== TaskStatus.Completed">
 
       ⏳ Pending
 
@@ -113,7 +113,7 @@
     <button
       mat-raised-button
       color="primary"
-      *ngIf="!task.isCompleted && task.assignedTo"
+      *ngIf="task.status !== TaskStatus.Completed && task.assignedTo"
       (click)="onCompleteClick()"
     >
 
@@ -125,7 +125,7 @@
       mat-button
       color="primary"
       *ngIf="
-      !task.isCompleted &&
+      task.status !== TaskStatus.Completed &&
       !isEditing
       "
       (click)="startEdit()"
@@ -138,7 +138,7 @@
     <button
       mat-button
       color="warn"
-      *ngIf="!task.isCompleted"
+      *ngIf="task.status !== TaskStatus.Completed"
       (click)="onDeleteClick()"
     >
 
@@ -149,7 +149,7 @@
     <button
       mat-raised-button
       color="accent"
-      *ngIf="!task.isCompleted && !suggestedUserName && !task.assignedTo"
+      *ngIf="task.status !== TaskStatus.Completed && !suggestedUserName && !task.assignedTo"
       (click)="suggestAssignee()"
     >
 
@@ -213,7 +213,7 @@
 
   <div
     *ngIf="
-      !task.isCompleted &&
+      task.status !== TaskStatus.Completed &&
       !task.assignedTo &&
       familyUsers.length > 0
     "

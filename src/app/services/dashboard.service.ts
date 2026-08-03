@@ -15,4 +15,9 @@ export class DashboardService {
   getDashboard() : Observable<DashboardDto>  {
      return this.http.get<DashboardDto>(this.apiUrl);
   }
+
+   getFamilyReviewTasks(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/family-review`);
+  }
+
 }

@@ -69,7 +69,9 @@
 <app-task-card
   *ngFor="let task of assignedTasks"
   [task]="task"
+  [familyUsers]="familyUsers"
   (complete)="completeTask($event)"
+  (updated)="loadTasks()"
   (delete)="deleteTask($event)">
 </app-task-card>
 

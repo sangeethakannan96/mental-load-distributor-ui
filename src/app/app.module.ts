@@ -75,6 +75,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ReflectionComponent } from './reflections/reflections.component';
 import { InsightsComponent } from './insights/insights/insights.component';
 import { InsightsService } from './services/insights.service';
+import { TaskReviewComponent } from './shared/task-review/task-review.component';
 
 
 @NgModule({
@@ -100,7 +101,8 @@ import { InsightsService } from './services/insights.service';
     SidebarComponent,
     AiAssistantComponent,
     ReflectionComponent,
-    InsightsComponent
+    InsightsComponent,
+    TaskReviewComponent
   ],
   imports: [
     BrowserModule,

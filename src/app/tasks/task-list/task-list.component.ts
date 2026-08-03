@@ -185,6 +185,8 @@ export class TaskListComponent implements OnInit {
         console.log(response);
 
         this.tasks = response;
+        console.log("Completed Tasks:", this.tasks.filter(t => t.status === TaskStatus.Completed));
+
       });
   }
 

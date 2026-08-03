@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { DashboardService } from '../services/dashboard.service';
 import { AuthService } from '../services/auth.service';
 import { TaskService } from '../services/task.service';
+import { ReviewMode } from '../models/review-mode';
+
+
 
 @Component({
   selector: 'app-home',
@@ -10,7 +13,12 @@ import { TaskService } from '../services/task.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  ReviewMode = ReviewMode;
+
   activeTasks: any[] = [];
+
+  yesterdayReviewTasks: any[] = [];
 
   constructor(
     private dashboardService: DashboardService,
@@ -20,20 +28,44 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadActiveTasks();
+    
+
+  this.loadYesterdayReview();
+
+  this.loadActiveTasks();
+
+  
   }
 
-  loadActiveTasks(): void {
-    this.dashboardService.getDashboard().subscribe((response: any) => {
-      this.activeTasks = response?.myActiveTasks || [];
+ loadActiveTasks(): void {
+  this.taskService
+    .getMyActiveTasks()
+    .subscribe(tasks => {
+      this.activeTasks = tasks;
     });
-  }
+}
+
+  loadYesterdayReview(): void {
+
+  this.taskService
+    .getMyYesterdayReview()
+    .subscribe(tasks => {
+
+      this.yesterdayReviewTasks = tasks;
+
+    });
+}
 
   completeTask(taskId: string): void {
     this.taskService.completeTask(taskId).subscribe(() => {
-      this.loadActiveTasks();
+      this.refreshHome();
     });
   }
+
+  refreshHome(): void {
+  this.loadYesterdayReview();
+  this.loadActiveTasks();
+}
 
   logout(): void {
     this.authService.logout();

@@ -15,11 +15,24 @@ export class TaskService {
     return this.http.post(this.apiUrl, task);
   }
 
+
+  getMyActiveTasks() {
+  return this.http.get<any[]>(`${this.apiUrl}/my-active`);
+  }
+
   getTasks() {
 
   return this.http.get<any[]>(
     this.apiUrl
   );
+}
+
+getMyYesterdayReview() {
+  return this.http.get<any[]>(`${this.apiUrl}/my-yesterday-review`);
+}
+
+getFamilyReview() {
+  return this.http.get<any[]>(`${this.apiUrl}/family-review`);
 }
 
   completeTask(taskId: string) {
