@@ -76,6 +76,8 @@ import { ReflectionComponent } from './reflections/reflections.component';
 import { InsightsComponent } from './insights/insights/insights.component';
 import { InsightsService } from './services/insights.service';
 import { TaskReviewComponent } from './shared/task-review/task-review.component';
+import { ReassignDialogComponent } from './shared/reassign-dialog/reassign-dialog.component';
+import { PostponeDialogComponent } from './shared/postpone-dialog/postpone-dialog.component';
 
 
 @NgModule({
@@ -102,7 +104,9 @@ import { TaskReviewComponent } from './shared/task-review/task-review.component'
     AiAssistantComponent,
     ReflectionComponent,
     InsightsComponent,
-    TaskReviewComponent
+    TaskReviewComponent,
+    ReassignDialogComponent,
+    PostponeDialogComponent
   ],
   imports: [
     BrowserModule,

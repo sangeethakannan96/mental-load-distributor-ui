@@ -48,7 +48,16 @@
 
     <mat-menu #bulkMenu="matMenu">
 
-      <button mat-menu-item>
+       <button mat-menu-item
+    (click)="handleBulkAction(BulkTaskAction.Complete)">
+    <mat-icon>done_all</mat-icon>
+
+    <span>Complete</span>
+    
+  </button>
+
+      <button mat-menu-item
+       (click)="openReassign()">
 
         <mat-icon>person</mat-icon>
 
@@ -56,7 +65,8 @@
 
       </button>
 
-      <button mat-menu-item>
+      <button mat-menu-item
+       (click)="openPostpone()">
 
         <mat-icon>schedule</mat-icon>
 
@@ -64,7 +74,8 @@
 
       </button>
 
-      <button mat-menu-item>
+      <button mat-menu-item
+      (click)="handleBulkAction(BulkTaskAction.Cancelled)">
 
         <mat-icon>cancel</mat-icon>
 
@@ -72,7 +83,8 @@
 
       </button>
 
-      <button mat-menu-item>
+      <button mat-menu-item
+      (click)="handleBulkAction(BulkTaskAction.Delete)">
 
         <mat-icon>delete</mat-icon>
 

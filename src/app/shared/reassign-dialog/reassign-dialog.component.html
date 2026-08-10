@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>
+  Reassign selected tasks
+</h2>
+
+<mat-dialog-content>
+
+  <mat-form-field appearance="outline" style="width: 100%;">
+
+    <mat-label>
+      Assign to
+    </mat-label>
+
+    <mat-select [(ngModel)]="selectedUserId">
+
+      <mat-option
+        *ngFor="let member of data.members"
+        [value]="member.id">
+
+        {{ member.name }}
+
+      </mat-option>
+
+    </mat-select>
+
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+  <button
+    mat-button
+    (click)="cancel()">
+
+    Cancel
+
+  </button>
+
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!selectedUserId"
+    (click)="reassign()">
+
+    Reassign
+
+  </button>
+
+</mat-dialog-actions>

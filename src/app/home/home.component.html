@@ -7,7 +7,11 @@
 
     [mode]="ReviewMode.Home"
 
-    (taskcompleted)="completeTask($event)">
+    [familyMembers]="familyMembers"
+
+    (taskcompleted)="completeTask($event)"
+    
+    (taskChanged)="loadActiveTasks()">
 
 </app-task-review>
 

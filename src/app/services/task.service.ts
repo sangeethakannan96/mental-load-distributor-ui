@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Recommendation } from '../models/recommendation.model';
+import { BulkTaskActionRequest } from '../models/bulktaskactionrequest';
 
 @Injectable({
   providedIn: 'root'
@@ -84,6 +85,13 @@ getTask(id: string) {
 
   return this.http.get(
     `${this.apiUrl}/${id}`
+  );
+}
+
+bulkAction(request: BulkTaskActionRequest) {
+  return this.http.post(
+    `${this.apiUrl}/bulk`,
+    request
   );
 }
 

@@ -6,9 +6,13 @@
 
     [mode]="ReviewMode.Dashboard"
 
+    [familyMembers]="familyMembers"
+
     (taskcompleted)="completeTask($event)"
 
-  ></app-task-review>">
+    (taskChanged)="loadDashboard()"
+
+  ></app-task-review>
 
 
 

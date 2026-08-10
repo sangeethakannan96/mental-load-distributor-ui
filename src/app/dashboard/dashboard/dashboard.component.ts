@@ -7,6 +7,7 @@ import { ChartConfiguration,ChartType} from 'chart.js';
 import { DashboardDto, MemberTodayDto } from 'src/app/models/dashboard.model';
 import { ReviewMode }
 from 'src/app/models/review-mode';
+import { FamilyService } from 'src/app/services/family.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,17 +22,21 @@ export class DashboardComponent implements OnInit {
 
    ReviewMode = ReviewMode;
 
+   familyMembers: any[] = [];
+
 
   constructor(
     private dashboardService: DashboardService,
     private authService: AuthService,
     private taskService: TaskService,
-    private router: Router
+    private router: Router,
+    private familyService: FamilyService
   ) {}
 
   ngOnInit(): void {
   this.loadDashboard();
    this.loadFamilyReviewTasks();
+   this.loadFamilyMembers();
 }
 
 loadDashboard(): void {
@@ -71,6 +76,17 @@ getCompletionPercentage(member: MemberTodayDto): number {
   }
 
   return (member.completedTasks / total) * 100;
+}
+
+loadFamilyMembers(): void {
+  this.familyService.getMyFamilyUsers().subscribe({
+    next: members => {
+      this.familyMembers = members;
+    },
+    error: err => {
+      console.error('Failed to load family members', err);
+    }
+  });
 }
 
 

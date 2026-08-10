@@ -24,7 +24,7 @@ export class FamilyService {
 
   getMyFamilyUsers() {
 
-  return this.http.get(
+  return this.http.get<any[]>(
     `${this.apiUrl}/mine/users`
   );
 }

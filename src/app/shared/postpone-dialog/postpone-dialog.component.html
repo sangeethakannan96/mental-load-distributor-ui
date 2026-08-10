@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>
+  Postpone selected tasks
+</h2>
+
+<mat-dialog-content>
+
+  <mat-form-field
+    appearance="outline"
+    style="width: 100%;">
+
+    <mat-label>New due date</mat-label>
+
+    <input
+      matInput
+      [matDatepicker]="picker"
+      [(ngModel)]="dueDate">
+
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="picker">
+    </mat-datepicker-toggle>
+
+    <mat-datepicker #picker></mat-datepicker>
+
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+  <button
+    mat-button
+    (click)="cancel()">
+    Cancel
+  </button>
+
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!dueDate"
+    (click)="postpone()">
+    Postpone
+  </button>
+
+</mat-dialog-actions>

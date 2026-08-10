@@ -4,6 +4,7 @@ import { DashboardService } from '../services/dashboard.service';
 import { AuthService } from '../services/auth.service';
 import { TaskService } from '../services/task.service';
 import { ReviewMode } from '../models/review-mode';
+import { FamilyService } from '../services/family.service';
 
 
 
@@ -20,8 +21,10 @@ export class HomeComponent implements OnInit {
 
   yesterdayReviewTasks: any[] = [];
 
+  familyMembers: any[] = [];
+
   constructor(
-    private dashboardService: DashboardService,
+     private familyService: FamilyService,
     private taskService: TaskService,
     private authService: AuthService,
     private router: Router
@@ -33,6 +36,8 @@ export class HomeComponent implements OnInit {
   this.loadYesterdayReview();
 
   this.loadActiveTasks();
+
+  this.loadFamilyMembers();
 
   
   }
@@ -66,6 +71,19 @@ export class HomeComponent implements OnInit {
   this.loadYesterdayReview();
   this.loadActiveTasks();
 }
+
+
+loadFamilyMembers(): void {
+  this.familyService.getMyFamilyUsers().subscribe({
+    next: members => {
+      this.familyMembers = members;
+    },
+    error: err => {
+      console.error('Failed to load family members', err);
+    }
+  });
+}
+
 
   logout(): void {
     this.authService.logout();
