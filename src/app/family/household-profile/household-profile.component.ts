@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AiService } from 'src/app/services/ai.service';
 import { FamilyProfileService } from 'src/app/services/family-profile.service';
+import { HouseholdPlanService } from 'src/app/services/household-plan.service';
 
 @Component({
   selector: 'app-household-profile',
@@ -9,24 +10,32 @@ import { FamilyProfileService } from 'src/app/services/family-profile.service';
   styleUrls: ['./household-profile.component.css']
 })
 export class HouseholdProfileComponent
-implements OnInit {
+  implements OnInit {
 
   householdDescription = '';
 
-  suggestions: any[] = [];
+  planDescription = '';
 
   errorMessage = '';
 
   constructor(
     private familyProfileService:
       FamilyProfileService,
-    private AiService: AiService,
+
+    private householdPlanService:
+      HouseholdPlanService,
+
+    private AiService:
+      AiService,
+
     private router: Router
   ) {}
 
   ngOnInit() {
 
     this.loadProfile();
+
+    this.loadHouseholdPlan();
   }
 
   loadProfile() {
@@ -40,6 +49,27 @@ implements OnInit {
       });
   }
 
+  loadHouseholdPlan() {
+
+    this.householdPlanService
+      .get()
+      .subscribe({
+
+        next: (plan: any) => {
+
+          this.planDescription =
+            plan.planDescription;
+        },
+
+        error: () => {
+
+          // No plan exists yet.
+          this.planDescription = '';
+        }
+
+      });
+  }
+
   save() {
 
     this.errorMessage = '';
@@ -50,7 +80,7 @@ implements OnInit {
     ) {
 
       this.errorMessage =
-        'Description is required';
+        'Household context is required';
 
       return;
     }
@@ -62,26 +92,80 @@ implements OnInit {
       })
       .subscribe(() => {
 
-        alert(
-          'Household profile updated'
-        );
+        this.saveHouseholdPlan();
+
+      });
+  }
+
+  saveHouseholdPlan() {
+
+    if (!this.planDescription?.trim()) {
+
+      alert(
+        'Household context updated'
+      );
+
+      return;
+    }
+
+    this.householdPlanService
+      .get()
+      .subscribe({
+
+        next: () => {
+
+          this.householdPlanService
+            .update(
+              this.planDescription
+            )
+            .subscribe(() => {
+
+              alert(
+                'Household information updated'
+              );
+
+            });
+
+        },
+
+        error: () => {
+
+          this.householdPlanService
+            .create(
+              this.planDescription
+            )
+            .subscribe(() => {
+
+              alert(
+                'Household information saved'
+              );
+
+            });
+
+        }
+
       });
   }
 
   generateHouseholdPlan() {
 
-  this.AiService
-    .generatehouseholdPlan()
-    .subscribe((response: any) => {
+    // We'll change this next so that
+    // both context and plan are sent
+    // to the AI.
 
-      sessionStorage.setItem(
-        'suggestions',
-        JSON.stringify(response)
-      );
+    this.AiService
+      .generatehouseholdPlan()
+      .subscribe((response: any) => {
 
-      this.router.navigate([
-        '/review-suggestions'
-      ]);
-    });
-}
+        sessionStorage.setItem(
+          'suggestions',
+          JSON.stringify(response)
+        );
+
+        this.router.navigate([
+          '/review-suggestions'
+        ]);
+
+      });
+  }
 }

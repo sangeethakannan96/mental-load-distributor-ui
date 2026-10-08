@@ -5,12 +5,21 @@
   </h2>
 
   <p>
+    Keep your household information updated
+    so AI recommendations stay accurate.
+  </p>
 
-    Keep your household
-    information updated so
-    AI recommendations stay
-    accurate.
 
+  <!-- Household Context -->
+
+  <h3>
+    Household Context
+  </h3>
+
+  <p>
+    Tell us about your family, work schedules,
+    children, circumstances and other factors
+    that affect your household.
   </p>
 
   <mat-form-field
@@ -19,13 +28,39 @@
 
     <textarea
       matInput
-      rows="12"
-      [(ngModel)]="
-        householdDescription
-      ">
+      rows="10"
+      [(ngModel)]="householdDescription">
     </textarea>
 
   </mat-form-field>
+
+
+  <!-- Household Plan -->
+
+  <h3>
+    Household Plan
+  </h3>
+
+  <p>
+    Describe how your household responsibilities
+    are currently managed, including chores,
+    routines, childcare and who usually handles them.
+  </p>
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width">
+
+    <textarea
+      matInput
+      rows="10"
+      [(ngModel)]="planDescription">
+    </textarea>
+
+  </mat-form-field>
+
+
+  <!-- Error -->
 
   <mat-error
     *ngIf="errorMessage">
@@ -34,67 +69,28 @@
 
   </mat-error>
 
+
+  <!-- Save -->
+
   <button
     mat-raised-button
     color="primary"
     (click)="save()">
 
     Save
+
   </button>
 
+
+  <!-- Generate -->
+
   <button
-  mat-raised-button
-  color="accent"
-  (click)="generateHouseholdPlan()">
+    mat-raised-button
+    color="accent"
+    (click)="generateHouseholdPlan()">
 
-  Generate Household Plan
+    Generate Household Plan
 
-</button>
-
-<div
-  *ngIf="suggestions.length">
-
-  <h3>
-    Suggested Tasks
-  </h3>
-
-  <mat-card
-    *ngFor="
-      let suggestion
-      of suggestions
-    ">
-
-    <h4>
-      {{ suggestion.title }}
-    </h4>
-
-    <p>
-      {{ suggestion.description }}
-    </p>
-
-    <p>
-
-      Category:
-      {{ suggestion.category }}
-
-    </p>
-
-    <p>
-
-      Recurrence:
-      {{ suggestion.recurrence }}
-
-    </p>
-
-    <p>
-
-      Suggested Role:
-      {{ suggestion.suggestedAssigneeRole }}
-
-    </p>
-
-  </mat-card>
-
-</div>
+  </button>
 
 </mat-card>

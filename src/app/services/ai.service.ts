@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { SuggestedTask } from '../models/suggested-task';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ generatehouseholdPlan() {
 
 generateEventPlan(prompt: string) {
 
-  return this.http.post<any[]>(
+  return this.http.post<SuggestedTask[]>(
 
     `${this.apiUrl}/generate-event-plan`,
 
@@ -38,7 +39,7 @@ generateEventPlan(prompt: string) {
 
 generateDailyPlan(prompt: string) {
 
-  return this.http.post<any[]>(
+  return this.http.post<SuggestedTask[]>(
 
     `${this.apiUrl}/generate-daily-plan`,
 
@@ -53,7 +54,7 @@ generateDailyPlan(prompt: string) {
 
 generateWeeklyPlan(prompt: string) {
 
-  return this.http.post<any[]>(
+  return this.http.post<SuggestedTask[]>(
 
     `${this.apiUrl}/generate-weekly-plan`,
 
@@ -67,7 +68,7 @@ generateWeeklyPlan(prompt: string) {
 
 generateMonthlyPlan(prompt: string) {
 
-  return this.http.post<any[]>(
+  return this.http.post<SuggestedTask[]>(
     `${this.apiUrl}/generate-monthly-plan`,
     {
       prompt: prompt
@@ -76,7 +77,7 @@ generateMonthlyPlan(prompt: string) {
 
 }
 
-approveSuggestions(suggestions: any[]) {
+approveSuggestions(suggestions: SuggestedTask[]) {
 
   return this.http.post(
     `${this.apiUrl}/approve-suggestions`,

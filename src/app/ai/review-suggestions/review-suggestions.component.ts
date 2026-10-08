@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SuggestedTask } from 'src/app/models/suggested-task';
 import { AiService } from 'src/app/services/ai.service';
 import { NotificationService } from 'src/app/services/notification.service';
 
@@ -11,8 +12,8 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class ReviewSuggestionsComponent implements OnInit {
 
 
-  suggestions: any[] = [];
-selectedSuggestions: any[] = [];
+  suggestions: SuggestedTask[] = [];
+selectedSuggestions: SuggestedTask[] = [];
 
 constructor(
   private aiService: AiService,
@@ -32,7 +33,7 @@ constructor(
 
     this.suggestions =
       JSON.parse(stored)
-        .map((s: any) => ({
+        .map((s: SuggestedTask) => ({
           ...s,
           selected: true
         }));
