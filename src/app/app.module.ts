@@ -78,6 +78,7 @@ import { InsightsService } from './services/insights.service';
 import { TaskReviewComponent } from './shared/task-review/task-review.component';
 import { ReassignDialogComponent } from './shared/reassign-dialog/reassign-dialog.component';
 import { PostponeDialogComponent } from './shared/postpone-dialog/postpone-dialog.component';
+import { ApprovedPlanComponent } from './family/approved-plan/approved-plan.component';
 
 
 @NgModule({
@@ -106,7 +107,8 @@ import { PostponeDialogComponent } from './shared/postpone-dialog/postpone-dialo
     InsightsComponent,
     TaskReviewComponent,
     ReassignDialogComponent,
-    PostponeDialogComponent
+    PostponeDialogComponent,
+    ApprovedPlanComponent
   ],
   imports: [
     BrowserModule,

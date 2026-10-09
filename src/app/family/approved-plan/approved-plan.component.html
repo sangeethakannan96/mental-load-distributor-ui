@@ -1,0 +1,151 @@
+
+<div class="approved-plan-page">
+
+  <div class="page-header">
+    <div>
+      <p class="eyebrow">HOUSEHOLD BLUEPRINT</p>
+      <h1>{{ approvedPlan?.title || 'Our Household Plan' }}</h1>
+      <p class="subtitle">
+        The responsibilities we've agreed to manage together.
+      </p>
+    </div>
+
+    <button class="tasks-button" (click)="goToTasks()">
+      View Tasks
+    </button>
+  </div>
+
+  <div *ngIf="isLoading" class="message">
+    Loading your household plan...
+  </div>
+
+  <div *ngIf="!isLoading && errorMessage" class="error-message">
+    {{ errorMessage }}
+    <button (click)="loadApprovedPlan()">Try again</button>
+  </div>
+
+  <ng-container *ngIf="!isLoading && approvedPlan">
+
+    <div class="plan-description"
+         *ngIf="approvedPlan.description">
+      {{ approvedPlan.description }}
+    </div>
+
+    <div *ngIf="approvedPlan.items?.length === 0"
+         class="empty-state">
+      <h2>Your household blueprint is ready to grow</h2>
+      <p>No responsibilities have been added to this plan yet.</p>
+    </div>
+
+    <section class="plan-section" *ngIf="dailyItems.length">
+      <div class="section-heading">
+        <span class="section-icon">☀️</span>
+        <div>
+          <h2>Daily responsibilities</h2>
+          <p>Things that keep the household running every day.</p>
+        </div>
+        <span class="item-count">{{ dailyItems.length }}</span>
+      </div>
+
+      <div class="responsibility-grid">
+        <div class="responsibility-card" *ngFor="let item of dailyItems">
+          <h3>{{ item.title }}</h3>
+          <p *ngIf="item.description">{{ item.description }}</p>
+
+          <div class="item-details">
+            <span>{{ item.category }}</span>
+            <span>{{ item.estimatedMinutes }} min</span>
+          </div>
+
+          <div class="assignee"
+               *ngIf="item.suggestedAssigneeRole">
+            Suggested responsibility:
+            {{ item.suggestedAssigneeRole }}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="plan-section" *ngIf="weeklyItems.length">
+      <div class="section-heading">
+        <span class="section-icon">📅</span>
+        <div>
+          <h2>Weekly responsibilities</h2>
+          <p>Responsibilities to organise across the week.</p>
+        </div>
+        <span class="item-count">{{ weeklyItems.length }}</span>
+      </div>
+
+      <div class="responsibility-grid">
+        <div class="responsibility-card" *ngFor="let item of weeklyItems">
+          <h3>{{ item.title }}</h3>
+          <p *ngIf="item.description">{{ item.description }}</p>
+
+          <div class="item-details">
+            <span>{{ item.category }}</span>
+            <span>{{ item.estimatedMinutes }} min</span>
+          </div>
+
+          <div class="assignee"
+               *ngIf="item.suggestedAssigneeRole">
+            Suggested responsibility:
+            {{ item.suggestedAssigneeRole }}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="plan-section" *ngIf="monthlyItems.length">
+      <div class="section-heading">
+        <span class="section-icon">🗓️</span>
+        <div>
+          <h2>Monthly responsibilities</h2>
+          <p>Less frequent responsibilities that still need attention.</p>
+        </div>
+        <span class="item-count">{{ monthlyItems.length }}</span>
+      </div>
+
+      <div class="responsibility-grid">
+        <div class="responsibility-card" *ngFor="let item of monthlyItems">
+          <h3>{{ item.title }}</h3>
+          <p *ngIf="item.description">{{ item.description }}</p>
+
+          <div class="item-details">
+            <span>{{ item.category }}</span>
+            <span>{{ item.estimatedMinutes }} min</span>
+          </div>
+
+          <div class="assignee"
+               *ngIf="item.suggestedAssigneeRole">
+            Suggested responsibility:
+            {{ item.suggestedAssigneeRole }}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="plan-section" *ngIf="otherItems.length">
+      <div class="section-heading">
+        <span class="section-icon">📌</span>
+        <div>
+          <h2>Other responsibilities</h2>
+          <p>Responsibilities without a daily, weekly or monthly recurrence.</p>
+        </div>
+        <span class="item-count">{{ otherItems.length }}</span>
+      </div>
+
+      <div class="responsibility-grid">
+        <div class="responsibility-card" *ngFor="let item of otherItems">
+          <h3>{{ item.title }}</h3>
+          <p *ngIf="item.description">{{ item.description }}</p>
+
+          <div class="item-details">
+            <span>{{ item.category }}</span>
+            <span>{{ item.estimatedMinutes }} min</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </ng-container>
+</div>

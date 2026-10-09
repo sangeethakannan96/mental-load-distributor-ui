@@ -69,28 +69,53 @@
 
   </mat-error>
 
+  
+
+
+<!-- Change Instructions -->
+
+<h3>
+  Refine Your Household Plan
+</h3>
+
+<p>
+  Tell AI what you would like to change in your
+  existing household blueprint. This is optional.
+</p>
+
+<mat-form-field
+  appearance="outline"
+  class="full-width">
+
+  <mat-label>
+    What would you like to change?
+  </mat-label>
+
+  <textarea
+    matInput
+    rows="6"
+    [(ngModel)]="changeInstructions"
+    placeholder="For example: Reduce Mom's workload, redistribute childcare, or change who handles grocery shopping.">
+  </textarea>
+
+</mat-form-field>
+
+
 
   <!-- Save -->
 
   <button
-    mat-raised-button
-    color="primary"
-    (click)="save()">
+  mat-raised-button
+  color="primary"
+  (click)="save()">
+  Save
+</button>
 
-    Save
-
-  </button>
-
-
-  <!-- Generate -->
-
-  <button
-    mat-raised-button
-    color="accent"
-    (click)="generateHouseholdPlan()">
-
-    Generate Household Plan
-
-  </button>
+<button
+  mat-raised-button
+  color="accent"
+  (click)="generateHouseholdPlan()">
+  Save &amp; Generate Plan
+</button>
 
 </mat-card>

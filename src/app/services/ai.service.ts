@@ -14,11 +14,13 @@ export class AiService {
     private http: HttpClient
   ) { }
 
-generatehouseholdPlan() {
+generatehouseholdPlan(changeInstructions: string) {
 
-  return this.http.post(
+  return this.http.post<any>(
     `${this.apiUrl}/generate-household-plan`,
-    {}
+    {
+      changeInstructions: changeInstructions?.trim() || null
+    }
   );
 }
 
@@ -97,6 +99,14 @@ analyzeReflection(content: string) {
   );
 
 }
+
+
+getApprovedPlan() {
+  return this.http.get<any>(
+    `${this.apiUrl}/approved-plan`
+  );
+}
+
 
 
   

@@ -14,6 +14,8 @@ export class ReviewSuggestionsComponent implements OnInit {
 
   suggestions: SuggestedTask[] = [];
 selectedSuggestions: SuggestedTask[] = [];
+refinementInstructions = '';
+isRefining = false;
 
 constructor(
   private aiService: AiService,
@@ -38,6 +40,10 @@ constructor(
           selected: true
         }));
   }
+}
+
+refineSuggestions(){
+
 }
 
 createTasks() {
@@ -67,7 +73,7 @@ createTasks() {
     .subscribe(() => {
 
       this.notificationService.success(
-        'Tasks created successfully'
+        'Household plan approved successfully!'
       );
 
       sessionStorage.removeItem(
@@ -75,7 +81,7 @@ createTasks() {
       );
 
       this.router.navigate([
-        '/tasks'
+        '/approved-plan'
       ]);
     });
 }

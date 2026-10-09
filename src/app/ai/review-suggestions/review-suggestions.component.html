@@ -2,6 +2,44 @@
 
 <p>{{ suggestions.length }} suggestions found</p>
 
+
+<!-- Refine Suggestions -->
+
+<mat-card class="refine-card">
+
+  <h3>Refine Your Household Plan</h3>
+
+  <p>
+    Want to improve these suggestions? Tell AI what you'd like
+    to change. Your existing approved blueprint will be preserved
+    until you approve the proposed changes.
+  </p>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>What would you like to change?</mat-label>
+
+    <textarea
+      matInput
+      rows="5"
+      [(ngModel)]="refinementInstructions"
+      name="refinementInstructions"
+      placeholder="For example: Reduce Mom's workload, assign more childcare to Dad, and preserve the existing grocery routine.">
+    </textarea>
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="refineSuggestions()"
+    [disabled]="isRefining || !refinementInstructions.trim()">
+
+    {{ isRefining ? 'Refining...' : 'Refine Suggestions' }}
+
+  </button>
+
+</mat-card>
+
+
 <mat-card>
 
   <mat-card

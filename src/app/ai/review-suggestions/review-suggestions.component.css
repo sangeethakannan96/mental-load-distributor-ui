@@ -1,0 +1,25 @@
+
+.refine-card {
+  margin: 24px 0;
+  padding: 24px;
+  border-radius: 12px;
+}
+
+.refine-card h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.refine-card p {
+  color: #5f6f63;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.refine-card button {
+  min-width: 180px;
+}

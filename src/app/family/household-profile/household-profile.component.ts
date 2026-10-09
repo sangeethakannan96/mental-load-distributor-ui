@@ -16,6 +16,8 @@ export class HouseholdProfileComponent
 
   planDescription = '';
 
+  changeInstructions = '';
+
   errorMessage = '';
 
   constructor(
@@ -70,102 +72,87 @@ export class HouseholdProfileComponent
       });
   }
 
-  save() {
-
-    this.errorMessage = '';
-
-    if (
-      !this.householdDescription
-        ?.trim()
-    ) {
-
-      this.errorMessage =
-        'Household context is required';
-
-      return;
-    }
-
-    this.familyProfileService
-      .update({
-        householdDescription:
-          this.householdDescription
-      })
-      .subscribe(() => {
-
-        this.saveHouseholdPlan();
-
-      });
-  }
-
-  saveHouseholdPlan() {
-
-    if (!this.planDescription?.trim()) {
-
-      alert(
-        'Household context updated'
-      );
-
-      return;
-    }
-
-    this.householdPlanService
-      .get()
-      .subscribe({
-
-        next: () => {
-
-          this.householdPlanService
-            .update(
-              this.planDescription
-            )
-            .subscribe(() => {
-
-              alert(
-                'Household information updated'
-              );
-
-            });
-
-        },
-
-        error: () => {
-
-          this.householdPlanService
-            .create(
-              this.planDescription
-            )
-            .subscribe(() => {
-
-              alert(
-                'Household information saved'
-              );
-
-            });
-
-        }
-
-      });
-  }
-
-  generateHouseholdPlan() {
-
-    // We'll change this next so that
-    // both context and plan are sent
-    // to the AI.
-
-    this.AiService
-      .generatehouseholdPlan()
-      .subscribe((response: any) => {
-
-        sessionStorage.setItem(
-          'suggestions',
-          JSON.stringify(response)
-        );
-
-        this.router.navigate([
-          '/review-suggestions'
-        ]);
-
-      });
-  }
+  
+save() {
+  this.saveProfileAndPlan(false);
 }
+
+generateHouseholdPlan() {
+  this.saveProfileAndPlan(true);
+}
+
+private saveProfileAndPlan(generatePlan: boolean) {
+  this.errorMessage = '';
+
+  if (!this.householdDescription?.trim()) {
+    this.errorMessage = 'Household context is required';
+    return;
+  }
+
+  this.familyProfileService.update({
+    householdDescription: this.householdDescription.trim()
+  }).subscribe({
+    next: () => {
+      this.saveHouseholdPlanAndContinue(generatePlan);
+    },
+    error: () => {
+      this.errorMessage = 'Failed to save household context. Please try again.';
+    }
+  });
+}
+
+private saveHouseholdPlanAndContinue(generatePlan: boolean) {
+  const plan = this.planDescription?.trim();
+
+  // If the plan is blank, don't create an empty plan.
+  if (!plan) {
+    if (generatePlan) {
+      this.errorMessage = 'Household plan is required to generate suggestions.';
+    } else {
+      alert('Household context saved.');
+    }
+    return;
+  }
+
+  this.householdPlanService.get().subscribe({
+    next: () => {
+      this.updateHouseholdPlan(plan, generatePlan);
+    },
+    error: () => {
+      this.householdPlanService.create(plan).subscribe({
+        next: () => this.afterProfileSaved(generatePlan),
+        error: () => {
+          this.errorMessage = 'Failed to save household plan. Please try again.';
+        }
+      });
+    }
+  });
+}
+
+private updateHouseholdPlan(plan: string, generatePlan: boolean) {
+  this.householdPlanService.update(plan).subscribe({
+    next: () => this.afterProfileSaved(generatePlan),
+    error: () => {
+      this.errorMessage = 'Failed to update household plan. Please try again.';
+    }
+  });
+}
+
+private afterProfileSaved(generatePlan: boolean) {
+  if (!generatePlan) {
+    alert('Household information saved.');
+    return;
+  }
+
+  this.AiService.generatehouseholdPlan(this.changeInstructions).subscribe({
+    next: (response: any) => {
+      sessionStorage.setItem('suggestions', JSON.stringify(response));
+      this.router.navigate(['/review-suggestions']);
+    },
+    error: () => {
+      this.errorMessage =
+        'Household information was saved, but plan generation failed. Please try again.';
+    }
+  });
+}
+  }
